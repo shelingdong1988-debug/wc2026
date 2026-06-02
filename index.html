@@ -1,0 +1,2023 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026 FIFA 世界杯 · 赛程总览</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-base:#0a0a0f;--bg-card:#12121a;--bg-card2:#1a1a26;--border:#2a2a3e;
+      --gold:#f5c518;--gold-dim:#b89010;--accent:#e84040;--accent2:#5b8fff;
+      --text-pri:#e8e8f0;--text-sec:#8888aa;--text-muted:#555570;
+      --win:#22c55e;--lose:#ef4444;--draw:#f59e0b;--badge-bg:#1e1e2e;
+    }
+    body{background:var(--bg-base);color:var(--text-pri);font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;min-height:100vh;}
+    header{position:relative;padding:36px 24px 28px;text-align:center;overflow:hidden;background:linear-gradient(180deg,#0d0d1a 0%,var(--bg-base) 100%);border-bottom:1px solid var(--border);}
+    header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 0%,rgba(245,197,24,.08) 0%,transparent 70%);pointer-events:none;}
+    .header-trophy{font-size:2.6rem;margin-bottom:8px;}
+    header h1{font-size:clamp(1.4rem,3vw,2.2rem);font-weight:800;letter-spacing:.04em;color:var(--gold);text-shadow:0 0 30px rgba(245,197,24,.4);}
+    header p{margin-top:6px;font-size:.85rem;color:var(--text-sec);letter-spacing:.05em;}
+    .header-flags{margin-top:12px;font-size:1.4rem;letter-spacing:.3em;}
+    main{max-width:960px;margin:0 auto;padding:28px 16px 60px;}
+    .tab-nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:24px;}
+    .tab-btn{padding:7px 18px;border-radius:6px;border:1px solid var(--border);background:var(--bg-card);color:var(--text-sec);font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s;letter-spacing:.04em;-webkit-tap-highlight-color:transparent;touch-action:manipulation;user-select:none;-webkit-user-select:none;}
+    .tab-btn:hover{border-color:var(--gold-dim);color:var(--gold);}
+    .tab-btn.active{background:var(--gold);border-color:var(--gold);color:#0a0a0f;}
+    .tab-panel{display:none;animation:fadeIn .3s ease;}
+    .tab-panel.active{display:block;}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+    .group-header{display:flex;align-items:center;gap:16px;margin-bottom:20px;padding:16px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;}
+    .group-label{font-size:2rem;font-weight:900;color:var(--gold);min-width:48px;text-align:center;}
+    .group-teams{display:flex;flex-wrap:wrap;gap:8px;}
+    .team-chip{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:99px;background:var(--badge-bg);border:1px solid var(--border);font-size:.82rem;font-weight:600;}
+    .team-chip.host{border-color:var(--gold-dim);color:var(--gold);}
+    .matches{display:flex;flex-direction:column;gap:14px;}
+    .match-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .2s,box-shadow .2s;}
+    .match-card:hover{border-color:#3a3a5a;box-shadow:0 4px 24px rgba(0,0,0,.4);}
+    .match-round{padding:5px 16px;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--bg-card2);color:var(--text-muted);border-bottom:1px solid var(--border);}
+    .match-round.r3{color:var(--accent);}
+    .match-body{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding:18px 20px;}
+    .team-block{display:flex;align-items:center;gap:8px;font-size:1rem;font-weight:700;}
+    .team-block.right{flex-direction:row-reverse;text-align:right;}
+    .team-flag{font-size:1.5rem;line-height:1;}
+    .team-name{color:var(--text-pri);}
+    .score-block{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:80px;}
+    .score-main{font-size:1.5rem;font-weight:900;color:var(--gold);letter-spacing:.08em;}
+    .score-main.empty{color:var(--text-muted);font-size:1rem;}
+    .score-date{font-size:.82rem;color:#c8c8e0;font-weight:600;white-space:nowrap;}
+    .score-time{font-size:.8rem;color:#a0a0c8;font-weight:500;}
+    .score-venue{font-size:.72rem;color:var(--text-muted);text-align:center;margin-top:2px;}
+    .match-footer{border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:0;}
+    .match-footer>div{padding:12px 16px;}
+    .match-footer>div:first-child{border-right:1px solid var(--border);}
+    .mf-label{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px;display:flex;align-items:center;gap:5px;}
+    .mf-label .dot{width:5px;height:5px;border-radius:50%;background:var(--gold);}
+    .mf-label .dot.pred{background:var(--accent2);}
+    .mf-text{font-size:.82rem;color:var(--text-sec);line-height:1.5;}
+    .result-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.78rem;font-weight:700;margin-top:4px;}
+    .result-badge.win{background:rgba(34,197,94,.15);color:var(--win);border:1px solid rgba(34,197,94,.3);}
+    .result-badge.lose{background:rgba(239,68,68,.15);color:var(--lose);border:1px solid rgba(239,68,68,.3);}
+    .result-badge.draw{background:rgba(245,158,11,.15);color:var(--draw);border:1px solid rgba(245,158,11,.3);}
+    .score-pred{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.78rem;font-weight:700;margin-top:4px;background:rgba(91,143,255,.12);color:var(--accent2);border:1px solid rgba(91,143,255,.3);letter-spacing:.04em;}
+    .stat-update-hint{font-size:.72rem;color:var(--text-muted);background:var(--badge-bg);border:1px solid var(--border);padding:3px 10px;border-radius:99px;white-space:nowrap;}
+    .stat-table-wrap{position:relative;margin-top:16px;}
+    .stat-table{width:100%;border-collapse:collapse;font-size:.85rem;}
+    .stat-table thead th{padding:10px 12px;text-align:left;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);background:var(--bg-card2);}
+    .stat-table thead th.col-rank{width:40px;text-align:center;}
+    .stat-table thead th.col-num{width:60px;text-align:center;}
+    .stat-table thead th.col-player{min-width:120px;}
+    .stat-table thead th.col-team{min-width:80px;}
+    .stat-table tbody tr{border-bottom:1px solid rgba(42,42,62,.5);transition:background .15s;}
+    .stat-table tbody tr:hover{background:rgba(245,197,24,.03);}
+    .stat-table tbody td{padding:10px 12px;color:var(--text-sec);}
+    .stat-table tbody td:first-child{text-align:center;font-weight:800;color:var(--gold);}
+    .stat-table tbody td.col-num{text-align:center;font-weight:700;}
+    .stat-table tbody tr.rank-1 td:first-child{color:#ffd700;font-size:1rem;}
+    .stat-table tbody tr.rank-2 td:first-child{color:#c0c0c0;}
+    .stat-table tbody tr.rank-3 td:first-child{color:#cd7f32;}
+    .stat-table tbody tr.rank-1 td.col-player{color:var(--gold);}
+    .stat-table .player-flag{margin-right:4px;}
+    .stat-empty{display:flex;flex-direction:column;align-items:center;gap:6px;padding:48px 20px;text-align:center;color:var(--text-muted);}
+    .stat-empty-icon{font-size:2.4rem;margin-bottom:4px;}
+    .stat-empty p{font-size:.9rem;}
+    .stat-empty .stat-empty-sub{font-size:.78rem;color:var(--text-muted);opacity:.7;}
+    .stat-note{margin-top:20px;padding:14px 16px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;}
+    footer{text-align:center;padding:20px;font-size:.75rem;color:var(--text-muted);border-top:1px solid var(--border);}
+    @media(max-width:600px){
+      .match-body{grid-template-columns:1fr;gap:8px;padding:14px;}
+      .team-block.right{flex-direction:row;text-align:left;}
+      .score-block{flex-direction:row;gap:10px;}
+      .match-footer{grid-template-columns:1fr;}
+      .match-footer>div:first-child{border-right:none;border-bottom:1px solid var(--border);}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="header-trophy">🏆</div>
+  <h1>2026 FIFA 世界杯 · 完整赛程</h1>
+  <p>CANADA · MEXICO · USA &nbsp;|&nbsp; 2026.06.11 – 07.19 &nbsp;|&nbsp; 北京时间显示</p>
+  <div class="header-flags">🇨🇦 🇲🇽 🇺🇸</div>
+</header>
+<main>
+  <nav class="tab-nav" id="tabNav">
+    <button class="tab-btn active" onclick="switchTab('A')">A 组</button><button class="tab-btn" onclick="switchTab('B')">B 组</button><button class="tab-btn" onclick="switchTab('C')">C 组</button><button class="tab-btn" onclick="switchTab('D')">D 组</button><button class="tab-btn" onclick="switchTab('E')">E 组</button><button class="tab-btn" onclick="switchTab('F')">F 组</button><button class="tab-btn" onclick="switchTab('G')">G 组</button><button class="tab-btn" onclick="switchTab('H')">H 组</button><button class="tab-btn" onclick="switchTab('I')">I 组</button><button class="tab-btn" onclick="switchTab('J')">J 组</button><button class="tab-btn" onclick="switchTab('K')">K 组</button><button class="tab-btn" onclick="switchTab('L')">L 组</button><span style="width:1px;height:24px;background:var(--border);margin:0 4px;align-self:center;"></span><button class="tab-btn" onclick="switchTab('scorers')">⚽ 射手榜</button><button class="tab-btn" onclick="switchTab('assists')">🅰️ 助攻榜</button>
+  </nav>
+  <div class="tab-panel active" id="panel-A">
+    <div class="group-header">
+      <div class="group-label">A</div>
+      <div class="group-teams">
+        <span class="team-chip host">🇲🇽 墨西哥 <small style="opacity:.6">东道主</small></span><span class="team-chip">🇿🇦 南非</span><span class="team-chip">🇰🇷 韩国</span><span class="team-chip">🇨🇿 捷克</span>
+      </div>
+    </div>
+    <div class="matches">
+    <div class="match-card">
+      <div class="match-round">第一轮 · Matchday 1</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇲🇽</span><span class="team-name">墨西哥</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-A1">-</span>
+          <span class="score-date">6月12日</span>
+          <span class="score-time">北京 03:00</span>
+          <span class="score-venue">🏟 Estadio Azteca · 墨西哥城</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇿🇦</span><span class="team-name">南非</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">东道主主场首战，阿兹特克球场见证历史。墨西哥球迷将带来史诗级主场氛围；南非拥有非洲预选赛最佳进攻，两队首次世界杯正面交锋。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">东道主优势明显，高原+10万球迷加持，南非客场适应性存疑。<br><span class="result-badge win">预测：墨西哥胜</span>&nbsp; <span class="score-pred">预测比分：墨西哥 2 : 0 南非</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第一轮 · Matchday 1</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇰🇷</span><span class="team-name">韩国</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-A2">-</span>
+          <span class="score-date">6月12日</span>
+          <span class="score-time">北京 10:00</span>
+          <span class="score-venue">🏟 Estadio Akron · 瓜达拉哈拉</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇨🇿</span><span class="team-name">捷克</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">孙兴慜领衔的韩国强调整体压迫与快速反击；捷克拥有欧洲出线赛最强中场之一的绍切克。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">两队实力相近，韩国整体配合更默契，孙兴慜个人能力可成胜负手。<br><span class="result-badge win">预测：韩国小胜</span>&nbsp; <span class="score-pred">预测比分：韩国 2 : 1 捷克</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第二轮 · Matchday 2</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇨🇿</span><span class="team-name">捷克</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-A3">-</span>
+          <span class="score-date">6月19日</span>
+          <span class="score-time">北京 00:00</span>
+          <span class="score-venue">🏟 Mercedes-Benz Stadium · 亚特兰大</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇿🇦</span><span class="team-name">南非</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">两支小组出线竞争者的生死对决。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">捷克整体实力略胜一筹，南非若首轮大比分负于墨西哥士气受损。<br><span class="result-badge win">预测：捷克胜</span>&nbsp; <span class="score-pred">预测比分：捷克 2 : 1 南非</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第二轮 · Matchday 2</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇲🇽</span><span class="team-name">墨西哥</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-A4">-</span>
+          <span class="score-date">6月19日</span>
+          <span class="score-time">北京 09:00</span>
+          <span class="score-venue">🏟 Estadio Akron · 瓜达拉哈拉</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇰🇷</span><span class="team-name">韩国</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">2022卡塔尔世界杯两队曾同组对决，这场复仇之战备受关注。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">强强对话，主场优势让墨西哥占据上风，但孙兴慜状态火热可能带来惊喜。<br><span class="result-badge draw">预测：难分伯仲</span>&nbsp; <span class="score-pred">预测比分：墨西哥 1 : 1 韩国</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round r3">第三轮 · Matchday 3（同时开球）</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇨🇿</span><span class="team-name">捷克</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-A5">-</span>
+          <span class="score-date">6月25日</span>
+          <span class="score-time">北京 09:00</span>
+          <span class="score-venue">🏟 Estadio Azteca · 墨西哥城</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇲🇽</span><span class="team-name">墨西哥</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">决定出线的关键役，捷克在阿兹特克球场挑战东道主。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">墨西哥主场之利不可忽视，但若已锁定出线或大面积轮换。<br><span class="result-badge draw">预测：视前两轮结果而定</span>&nbsp; <span class="score-pred">预测比分：捷克 1 : 1 墨西哥</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round r3">第三轮 · Matchday 3（同时开球）</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇿🇦</span><span class="team-name">南非</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-A6">-</span>
+          <span class="score-date">6月25日</span>
+          <span class="score-time">北京 09:00</span>
+          <span class="score-venue">🏟 Estadio BBVA · 蒙特雷</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇰🇷</span><span class="team-name">韩国</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">南非vs韩国的最终出线争夺。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">韩国阵容深度更强，边路速度是南非后防噩梦。<br><span class="result-badge win">预测：韩国胜</span>&nbsp; <span class="score-pred">预测比分：南非 0 : 2 韩国</span></div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="tab-panel" id="panel-B">
+    <div class="group-header">
+      <div class="group-label">B</div>
+      <div class="group-teams">
+        <span class="team-chip host">🇨🇦 加拿大 <small style="opacity:.6">东道主</small></span><span class="team-chip">🇨🇭 瑞士</span><span class="team-chip">🇶🇦 卡塔尔</span><span class="team-chip">🇧🇦 波黑</span>
+      </div>
+    </div>
+    <div class="matches">
+    <div class="match-card">
+      <div class="match-round">第一轮 · Matchday 1</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇨🇦</span><span class="team-name">加拿大</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-B1">-</span>
+          <span class="score-date">6月13日</span>
+          <span class="score-time">北京 03:00</span>
+          <span class="score-venue">🏟 BMO Field · 多伦多</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇧🇦</span><span class="team-name">波黑</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">东道主加拿大的世界杯揭幕战，阿方索·戴维斯领衔的青年军主场出击。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">加拿大主场气势如虹，年轻冲击力强。<br><span class="result-badge win">预测：加拿大胜</span>&nbsp; <span class="score-pred">预测比分：加拿大 2 : 1 波黑</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第一轮 · Matchday 1</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇶🇦</span><span class="team-name">卡塔尔</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-B2">-</span>
+          <span class="score-date">6月14日</span>
+          <span class="score-time">北京 03:00</span>
+          <span class="score-venue">🏟 Levi's Stadium · 圣克拉拉</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇨🇭</span><span class="team-name">瑞士</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">2022世界杯同组再相遇，瑞士当时1-0小胜。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">瑞士大赛经验丰富，防守反击效率高。<br><span class="result-badge win">预测：瑞士胜</span>&nbsp; <span class="score-pred">预测比分：卡塔尔 0 : 2 瑞士</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第二轮 · Matchday 2</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇨🇭</span><span class="team-name">瑞士</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-B3">-</span>
+          <span class="score-date">6月19日</span>
+          <span class="score-time">北京 03:00</span>
+          <span class="score-venue">🏟 SoFi Stadium · 洛杉矶</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇧🇦</span><span class="team-name">波黑</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">欧洲内战，瑞士技术流对阵波黑硬汉打法。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">瑞士整体实力高一档，控球优势将贯穿全场。<br><span class="result-badge win">预测：瑞士胜</span>&nbsp; <span class="score-pred">预测比分：瑞士 2 : 0 波黑</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第二轮 · Matchday 2</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇨🇦</span><span class="team-name">加拿大</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-B4">-</span>
+          <span class="score-date">6月19日</span>
+          <span class="score-time">北京 06:00</span>
+          <span class="score-venue">🏟 BC Place · 温哥华</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇶🇦</span><span class="team-name">卡塔尔</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">加拿大西海岸主场，戴维斯速度对卡塔尔后防是致命威胁。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">加拿大两线作战全取主场优势。<br><span class="result-badge win">预测：加拿大胜</span>&nbsp; <span class="score-pred">预测比分：加拿大 3 : 1 卡塔尔</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round r3">第三轮 · Matchday 3（同时开球）</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇨🇭</span><span class="team-name">瑞士</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-B5">-</span>
+          <span class="score-date">6月25日</span>
+          <span class="score-time">北京 03:00</span>
+          <span class="score-venue">🏟 BC Place · 温哥华</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇨🇦</span><span class="team-name">加拿大</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">本组最强对话，小组头名之争。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">势均力敌，瑞士经验vs加拿大激情。<br><span class="result-badge draw">预测：势均力敌</span>&nbsp; <span class="score-pred">预测比分：瑞士 1 : 1 加拿大</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round r3">第三轮 · Matchday 3（同时开球）</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇧🇦</span><span class="team-name">波黑</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-B6">-</span>
+          <span class="score-date">6月25日</span>
+          <span class="score-time">北京 03:00</span>
+          <span class="score-venue">🏟 Lumen Field · 西雅图</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇶🇦</span><span class="team-name">卡塔尔</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">两支可能已无缘出线的球队的荣誉之战。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">波黑整体实力略强，但卡塔尔战斗意志不可低估。<br><span class="result-badge draw">预测：难分胜负</span>&nbsp; <span class="score-pred">预测比分：波黑 1 : 1 卡塔尔</span></div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="tab-panel" id="panel-C">
+    <div class="group-header">
+      <div class="group-label">C</div>
+      <div class="group-teams">
+        <span class="team-chip">🇧🇷 巴西</span><span class="team-chip">🇲🇦 摩洛哥</span><span class="team-chip">🇭🇹 海地</span><span class="team-chip">🏴󠁧󠁢󠁳󠁣󠁴󠁿 苏格兰</span>
+      </div>
+    </div>
+    <div class="matches">
+    <div class="match-card">
+      <div class="match-round">第一轮 · Matchday 1</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇧🇷</span><span class="team-name">巴西</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-C1">-</span>
+          <span class="score-date">6月14日</span>
+          <span class="score-time">北京 06:00</span>
+          <span class="score-venue">🏟 MetLife Stadium · 纽约</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇲🇦</span><span class="team-name">摩洛哥</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">2022世界杯八强战翻版！摩洛哥当时爆冷淘汰巴西，本场桑巴军团志在雪耻。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">巴西复仇心切，整体实力占优，但摩洛哥防守体系难以击穿。<br><span class="result-badge win">预测：巴西小胜</span>&nbsp; <span class="score-pred">预测比分：巴西 2 : 1 摩洛哥</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第一轮 · Matchday 1</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇭🇹</span><span class="team-name">海地</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-C2">-</span>
+          <span class="score-date">6月14日</span>
+          <span class="score-time">北京 09:00</span>
+          <span class="score-venue">🏟 Gillette Stadium · 波士顿</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span><span class="team-name">苏格兰</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">海地时隔多年重返世界杯，全队士气高涨；苏格兰身体对抗强硬。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">苏格兰大赛经验和身体优势明显。<br><span class="result-badge win">预测：苏格兰胜</span>&nbsp; <span class="score-pred">预测比分：海地 0 : 2 苏格兰</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第二轮 · Matchday 2</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span><span class="team-name">苏格兰</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-C3">-</span>
+          <span class="score-date">6月20日</span>
+          <span class="score-time">北京 06:00</span>
+          <span class="score-venue">🏟 Gillette Stadium · 波士顿</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇲🇦</span><span class="team-name">摩洛哥</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">苏格兰的身体对抗vs摩洛哥的技术流。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">摩洛哥技术细腻且防守出色。<br><span class="result-badge win">预测：摩洛哥胜</span>&nbsp; <span class="score-pred">预测比分：苏格兰 0 : 1 摩洛哥</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第二轮 · Matchday 2</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇧🇷</span><span class="team-name">巴西</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-C4">-</span>
+          <span class="score-date">6月20日</span>
+          <span class="score-time">北京 08:30</span>
+          <span class="score-venue">🏟 Lincoln Financial Field · 费城</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇭🇹</span><span class="team-name">海地</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">巴西面对本组最弱对手。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">巴西实力碾压。<br><span class="result-badge win">预测：巴西大胜</span>&nbsp; <span class="score-pred">预测比分：巴西 4 : 0 海地</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round r3">第三轮 · Matchday 3（同时开球）</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span><span class="team-name">苏格兰</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-C5">-</span>
+          <span class="score-date">6月25日</span>
+          <span class="score-time">北京 06:00</span>
+          <span class="score-venue">🏟 Hard Rock Stadium · 迈阿密</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇧🇷</span><span class="team-name">巴西</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">苏格兰若想出线需在巴西身上拿分，难度极大。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">巴西轮换阵容实力仍远超。<br><span class="result-badge win">预测：巴西胜</span>&nbsp; <span class="score-pred">预测比分：苏格兰 0 : 2 巴西</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round r3">第三轮 · Matchday 3（同时开球）</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇲🇦</span><span class="team-name">摩洛哥</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-C6">-</span>
+          <span class="score-date">6月25日</span>
+          <span class="score-time">北京 06:00</span>
+          <span class="score-venue">🏟 Mercedes-Benz Stadium · 亚特兰大</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇭🇹</span><span class="team-name">海地</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">摩洛哥争夺小组第二的关键战。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">摩洛哥稳扎稳打。<br><span class="result-badge win">预测：摩洛哥胜</span>&nbsp; <span class="score-pred">预测比分：摩洛哥 3 : 0 海地</span></div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="tab-panel" id="panel-D">
+    <div class="group-header">
+      <div class="group-label">D</div>
+      <div class="group-teams">
+        <span class="team-chip host">🇺🇸 美国 <small style="opacity:.6">东道主</small></span><span class="team-chip">🇵🇾 巴拉圭</span><span class="team-chip">🇦🇺 澳大利亚</span><span class="team-chip">🇹🇷 土耳其</span>
+      </div>
+    </div>
+    <div class="matches">
+    <div class="match-card">
+      <div class="match-round">第一轮 · Matchday 1</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇺🇸</span><span class="team-name">美国</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-D1">-</span>
+          <span class="score-date">6月13日</span>
+          <span class="score-time">北京 09:00</span>
+          <span class="score-venue">🏟 SoFi Stadium · 洛杉矶</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇵🇾</span><span class="team-name">巴拉圭</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">美国主场首秀，普利西奇领衔的黄金一代志在走远。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">美国主场气势十足，巴拉圭防守虽强但进攻乏力。<br><span class="result-badge win">预测：美国胜</span>&nbsp; <span class="score-pred">预测比分：美国 2 : 0 巴拉圭</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第一轮 · Matchday 1</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇦🇺</span><span class="team-name">澳大利亚</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-D2">-</span>
+          <span class="score-date">6月14日</span>
+          <span class="score-time">北京 12:00</span>
+          <span class="score-venue">🏟 BC Place · 温哥华</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇹🇷</span><span class="team-name">土耳其</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">澳大利亚体能和空中优势突出，土耳其技术细腻但情绪化。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">土耳其技术占优但大赛发挥不稳。<br><span class="result-badge draw">预测：难分伯仲</span>&nbsp; <span class="score-pred">预测比分：澳大利亚 1 : 1 土耳其</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第二轮 · Matchday 2</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇺🇸</span><span class="team-name">美国</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-D3">-</span>
+          <span class="score-date">6月20日</span>
+          <span class="score-time">北京 03:00</span>
+          <span class="score-venue">🏟 Lumen Field · 西雅图</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇦🇺</span><span class="team-name">澳大利亚</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">英语系国家德比。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">美国技术层面更胜一筹。<br><span class="result-badge win">预测：美国胜</span>&nbsp; <span class="score-pred">预测比分：美国 3 : 1 澳大利亚</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第二轮 · Matchday 2</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇹🇷</span><span class="team-name">土耳其</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-D4">-</span>
+          <span class="score-date">6月20日</span>
+          <span class="score-time">北京 11:00</span>
+          <span class="score-venue">🏟 Levi's Stadium · 圣克拉拉</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇵🇾</span><span class="team-name">巴拉圭</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">土耳其必须取胜保留出线希望。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">土耳其进攻天赋更高。<br><span class="result-badge win">预测：土耳其胜</span>&nbsp; <span class="score-pred">预测比分：土耳其 2 : 0 巴拉圭</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round r3">第三轮 · Matchday 3（同时开球）</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇹🇷</span><span class="team-name">土耳其</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-D5">-</span>
+          <span class="score-date">6月26日</span>
+          <span class="score-time">北京 10:00</span>
+          <span class="score-venue">🏟 SoFi Stadium · 洛杉矶</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇺🇸</span><span class="team-name">美国</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">本组最具悬念的对决。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">美国主场优势+更稳定的发挥。<br><span class="result-badge win">预测：美国胜</span>&nbsp; <span class="score-pred">预测比分：土耳其 1 : 2 美国</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round r3">第三轮 · Matchday 3（同时开球）</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇵🇾</span><span class="team-name">巴拉圭</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-D6">-</span>
+          <span class="score-date">6月26日</span>
+          <span class="score-time">北京 10:00</span>
+          <span class="score-venue">🏟 Levi's Stadium · 圣克拉拉</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇦🇺</span><span class="team-name">澳大利亚</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">两队争夺小组第三。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">旗鼓相当。<br><span class="result-badge draw">预测：平局</span>&nbsp; <span class="score-pred">预测比分：巴拉圭 1 : 1 澳大利亚</span></div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="tab-panel" id="panel-E">
+    <div class="group-header">
+      <div class="group-label">E</div>
+      <div class="group-teams">
+        <span class="team-chip">🇩🇪 德国</span><span class="team-chip">🇨🇼 库拉索</span><span class="team-chip">🇨🇮 科特迪瓦</span><span class="team-chip">🇪🇨 厄瓜多尔</span>
+      </div>
+    </div>
+    <div class="matches">
+    <div class="match-card">
+      <div class="match-round">第一轮 · Matchday 1</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇩🇪</span><span class="team-name">德国</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-E1">-</span>
+          <span class="score-date">6月15日</span>
+          <span class="score-time">北京 01:00</span>
+          <span class="score-venue">🏟 NRG Stadium · 休斯顿</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇨🇼</span><span class="team-name">库拉索</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">四届世界杯冠军vs世界杯新军。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">德国实力碾压。<br><span class="result-badge win">预测：德国大胜</span>&nbsp; <span class="score-pred">预测比分：德国 5 : 0 库拉索</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第一轮 · Matchday 1</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇨🇮</span><span class="team-name">科特迪瓦</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-E2">-</span>
+          <span class="score-date">6月15日</span>
+          <span class="score-time">北京 07:00</span>
+          <span class="score-venue">🏟 Lincoln Financial Field · 费城</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇪🇨</span><span class="team-name">厄瓜多尔</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">非洲劲旅vs南美黑马。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">科特迪瓦个人能力更胜一筹。<br><span class="result-badge win">预测：科特迪瓦胜</span>&nbsp; <span class="score-pred">预测比分：科特迪瓦 2 : 1 厄瓜多尔</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第二轮 · Matchday 2</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇩🇪</span><span class="team-name">德国</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-E3">-</span>
+          <span class="score-date">6月21日</span>
+          <span class="score-time">北京 04:00</span>
+          <span class="score-venue">🏟 BMO Field · 多伦多</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇨🇮</span><span class="team-name">科特迪瓦</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">本组最具悬念的对决。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">德国整体实力和战术素养占优。<br><span class="result-badge win">预测：德国胜</span>&nbsp; <span class="score-pred">预测比分：德国 3 : 1 科特迪瓦</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第二轮 · Matchday 2</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇪🇨</span><span class="team-name">厄瓜多尔</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-E4">-</span>
+          <span class="score-date">6月21日</span>
+          <span class="score-time">北京 08:00</span>
+          <span class="score-venue">🏟 Arrowhead Stadium · 堪萨斯城</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇨🇼</span><span class="team-name">库拉索</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">厄瓜多尔必须取胜保留出线希望。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">厄瓜多尔实力明显占优。<br><span class="result-badge win">预测：厄瓜多尔胜</span>&nbsp; <span class="score-pred">预测比分：厄瓜多尔 3 : 0 库拉索</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round r3">第三轮 · Matchday 3（同时开球）</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇨🇼</span><span class="team-name">库拉索</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-E5">-</span>
+          <span class="score-date">6月26日</span>
+          <span class="score-time">北京 04:00</span>
+          <span class="score-venue">🏟 Lincoln Financial Field · 费城</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇨🇮</span><span class="team-name">科特迪瓦</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">科特迪瓦争夺出线权的关键战。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">科特迪瓦必须全力争胜。<br><span class="result-badge win">预测：科特迪瓦胜</span>&nbsp; <span class="score-pred">预测比分：库拉索 0 : 3 科特迪瓦</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round r3">第三轮 · Matchday 3（同时开球）</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇪🇨</span><span class="team-name">厄瓜多尔</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-E6">-</span>
+          <span class="score-date">6月26日</span>
+          <span class="score-time">北京 04:00</span>
+          <span class="score-venue">🏟 MetLife Stadium · 纽约</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇩🇪</span><span class="team-name">德国</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">厄瓜多尔背水一战。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">德国战意不足或给对手机会。<br><span class="result-badge draw">预测：平局</span>&nbsp; <span class="score-pred">预测比分：厄瓜多尔 1 : 1 德国</span></div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="tab-panel" id="panel-F">
+    <div class="group-header">
+      <div class="group-label">F</div>
+      <div class="group-teams">
+        <span class="team-chip">🇳🇱 荷兰</span><span class="team-chip">🇯🇵 日本</span><span class="team-chip">🇹🇳 突尼斯</span><span class="team-chip">🇸🇪 瑞典</span>
+      </div>
+    </div>
+    <div class="matches">
+    <div class="match-card">
+      <div class="match-round">第一轮 · Matchday 1</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇳🇱</span><span class="team-name">荷兰</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-F1">-</span>
+          <span class="score-date">6月15日</span>
+          <span class="score-time">北京 04:00</span>
+          <span class="score-venue">🏟 AT&T Stadium · 达拉斯</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇯🇵</span><span class="team-name">日本</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">2022世界杯1/8决赛翻版！荷兰当时2-1逆转日本。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">荷兰大赛经验丰富但日本进步神速。<br><span class="result-badge draw">预测：难分伯仲</span>&nbsp; <span class="score-pred">预测比分：荷兰 1 : 1 日本</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第一轮 · Matchday 1</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇹🇳</span><span class="team-name">突尼斯</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-F2">-</span>
+          <span class="score-date">6月15日</span>
+          <span class="score-time">北京 10:00</span>
+          <span class="score-venue">🏟 Estadio BBVA · 蒙特雷</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇸🇪</span><span class="team-name">瑞典</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">北非铁桶vs北欧海盗。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">瑞典身体优势明显。<br><span class="result-badge win">预测：瑞典胜</span>&nbsp; <span class="score-pred">预测比分：突尼斯 0 : 2 瑞典</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第二轮 · Matchday 2</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇳🇱</span><span class="team-name">荷兰</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-F3">-</span>
+          <span class="score-date">6月21日</span>
+          <span class="score-time">北京 01:00</span>
+          <span class="score-venue">🏟 NRG Stadium · 休斯顿</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇸🇪</span><span class="team-name">瑞典</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">欧洲内战。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">荷兰技术层面占优。<br><span class="result-badge win">预测：荷兰胜</span>&nbsp; <span class="score-pred">预测比分：荷兰 2 : 0 瑞典</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第二轮 · Matchday 2</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇹🇳</span><span class="team-name">突尼斯</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-F4">-</span>
+          <span class="score-date">6月21日</span>
+          <span class="score-time">北京 12:00</span>
+          <span class="score-venue">🏟 Estadio BBVA · 蒙特雷</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇯🇵</span><span class="team-name">日本</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">日本必须取胜保留出线希望。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">日本技术全面占优。<br><span class="result-badge win">预测：日本胜</span>&nbsp; <span class="score-pred">预测比分：突尼斯 0 : 2 日本</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round r3">第三轮 · Matchday 3（同时开球）</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇹🇳</span><span class="team-name">突尼斯</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-F5">-</span>
+          <span class="score-date">6月26日</span>
+          <span class="score-time">北京 07:00</span>
+          <span class="score-venue">🏟 Arrowhead Stadium · 堪萨斯城</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇳🇱</span><span class="team-name">荷兰</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">突尼斯为荣誉而战。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">荷兰稳控局面。<br><span class="result-badge win">预测：荷兰胜</span>&nbsp; <span class="score-pred">预测比分：突尼斯 0 : 3 荷兰</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round r3">第三轮 · Matchday 3（同时开球）</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇯🇵</span><span class="team-name">日本</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-F6">-</span>
+          <span class="score-date">6月26日</span>
+          <span class="score-time">北京 07:00</span>
+          <span class="score-venue">🏟 AT&T Stadium · 达拉斯</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇸🇪</span><span class="team-name">瑞典</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">日本vs瑞典争夺小组第二。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">日本速度和技术占优。<br><span class="result-badge win">预测：日本小胜</span>&nbsp; <span class="score-pred">预测比分：日本 2 : 1 瑞典</span></div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="tab-panel" id="panel-G">
+    <div class="group-header">
+      <div class="group-label">G</div>
+      <div class="group-teams">
+        <span class="team-chip">🇧🇪 比利时</span><span class="team-chip">🇪🇬 埃及</span><span class="team-chip">🇮🇷 伊朗</span><span class="team-chip">🇳🇿 新西兰</span>
+      </div>
+    </div>
+    <div class="matches">
+    <div class="match-card">
+      <div class="match-round">第一轮 · Matchday 1</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇧🇪</span><span class="team-name">比利时</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-G1">-</span>
+          <span class="score-date">6月16日</span>
+          <span class="score-time">北京 03:00</span>
+          <span class="score-venue">🏟 Lumen Field · 西雅图</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇪🇬</span><span class="team-name">埃及</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">德布劳内最后一舞vs萨拉赫可能是最后一次世界杯。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">比利时整体更强但年龄偏大。<br><span class="result-badge win">预测：比利时胜</span>&nbsp; <span class="score-pred">预测比分：比利时 2 : 1 埃及</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第一轮 · Matchday 1</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇮🇷</span><span class="team-name">伊朗</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-G2">-</span>
+          <span class="score-date">6月16日</span>
+          <span class="score-time">北京 09:00</span>
+          <span class="score-venue">🏟 SoFi Stadium · 洛杉矶</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇳🇿</span><span class="team-name">新西兰</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">伊朗身体对抗和反击速度在亚洲首屈一指。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">伊朗技术层面更成熟。<br><span class="result-badge win">预测：伊朗胜</span>&nbsp; <span class="score-pred">预测比分：伊朗 2 : 0 新西兰</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第二轮 · Matchday 2</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇧🇪</span><span class="team-name">比利时</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-G3">-</span>
+          <span class="score-date">6月22日</span>
+          <span class="score-time">北京 03:00</span>
+          <span class="score-venue">🏟 SoFi Stadium · 洛杉矶</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇮🇷</span><span class="team-name">伊朗</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">德布劳内的传球vs伊朗铁血防线。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">比利时控球占优。<br><span class="result-badge win">预测：比利时小胜</span>&nbsp; <span class="score-pred">预测比分：比利时 2 : 1 伊朗</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第二轮 · Matchday 2</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇳🇿</span><span class="team-name">新西兰</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-G4">-</span>
+          <span class="score-date">6月22日</span>
+          <span class="score-time">北京 09:00</span>
+          <span class="score-venue">🏟 BC Place · 温哥华</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇪🇬</span><span class="team-name">埃及</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">两队都需拿分保留出线希望。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">萨拉赫一己之力可改变战局。<br><span class="result-badge win">预测：埃及胜</span>&nbsp; <span class="score-pred">预测比分：新西兰 0 : 2 埃及</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round r3">第三轮 · Matchday 3（同时开球）</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇪🇬</span><span class="team-name">埃及</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-G5">-</span>
+          <span class="score-date">6月27日</span>
+          <span class="score-time">北京 11:00</span>
+          <span class="score-venue">🏟 Lumen Field · 西雅图</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇮🇷</span><span class="team-name">伊朗</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">中东德比火星四溅。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">伊朗防守更稳固。<br><span class="result-badge draw">预测：平局</span>&nbsp; <span class="score-pred">预测比分：埃及 1 : 1 伊朗</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round r3">第三轮 · Matchday 3（同时开球）</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇳🇿</span><span class="team-name">新西兰</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-G6">-</span>
+          <span class="score-date">6月27日</span>
+          <span class="score-time">北京 11:00</span>
+          <span class="score-venue">🏟 BC Place · 温哥华</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇧🇪</span><span class="team-name">比利时</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">比利时若已出线将轮换。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">比利时即使轮换实力仍远胜。<br><span class="result-badge win">预测：比利时胜</span>&nbsp; <span class="score-pred">预测比分：新西兰 0 : 3 比利时</span></div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="tab-panel" id="panel-H">
+    <div class="group-header">
+      <div class="group-label">H</div>
+      <div class="group-teams">
+        <span class="team-chip">🇪🇸 西班牙</span><span class="team-chip">🇨🇻 佛得角</span><span class="team-chip">🇸🇦 沙特阿拉伯</span><span class="team-chip">🇺🇾 乌拉圭</span>
+      </div>
+    </div>
+    <div class="matches">
+    <div class="match-card">
+      <div class="match-round">第一轮 · Matchday 1</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇪🇸</span><span class="team-name">西班牙</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-H1">-</span>
+          <span class="score-date">6月16日</span>
+          <span class="score-time">北京 00:00</span>
+          <span class="score-venue">🏟 Mercedes-Benz Stadium · 亚特兰大</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇨🇻</span><span class="team-name">佛得角</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">亚马尔和佩德里领衔的新一代斗牛士亮相。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">西班牙实力碾压。<br><span class="result-badge win">预测：西班牙大胜</span>&nbsp; <span class="score-pred">预测比分：西班牙 4 : 0 佛得角</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第一轮 · Matchday 1</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇸🇦</span><span class="team-name">沙特阿拉伯</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-H2">-</span>
+          <span class="score-date">6月16日</span>
+          <span class="score-time">北京 06:00</span>
+          <span class="score-venue">🏟 Hard Rock Stadium · 迈阿密</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇺🇾</span><span class="team-name">乌拉圭</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">2022世界杯沙特曾爆冷击败阿根廷，乌拉圭不敢轻敌。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">乌拉圭攻击力强悍。<br><span class="result-badge win">预测：乌拉圭胜</span>&nbsp; <span class="score-pred">预测比分：沙特阿拉伯 0 : 2 乌拉圭</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第二轮 · Matchday 2</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇪🇸</span><span class="team-name">西班牙</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-H3">-</span>
+          <span class="score-date">6月22日</span>
+          <span class="score-time">北京 00:00</span>
+          <span class="score-venue">🏟 Mercedes-Benz Stadium · 亚特兰大</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇸🇦</span><span class="team-name">沙特阿拉伯</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">西班牙传控vs沙特防反。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">西班牙控球率预计超70%。<br><span class="result-badge win">预测：西班牙胜</span>&nbsp; <span class="score-pred">预测比分：西班牙 3 : 0 沙特阿拉伯</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第二轮 · Matchday 2</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇺🇾</span><span class="team-name">乌拉圭</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-H4">-</span>
+          <span class="score-date">6月22日</span>
+          <span class="score-time">北京 06:00</span>
+          <span class="score-venue">🏟 Hard Rock Stadium · 迈阿密</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇨🇻</span><span class="team-name">佛得角</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">乌拉圭必须取胜确保出线。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">乌拉圭实力远超对手。<br><span class="result-badge win">预测：乌拉圭胜</span>&nbsp; <span class="score-pred">预测比分：乌拉圭 3 : 0 佛得角</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round r3">第三轮 · Matchday 3（同时开球）</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇨🇻</span><span class="team-name">佛得角</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-H5">-</span>
+          <span class="score-date">6月27日</span>
+          <span class="score-time">北京 08:00</span>
+          <span class="score-venue">🏟 NRG Stadium · 休斯顿</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇸🇦</span><span class="team-name">沙特阿拉伯</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">两队争夺小组第三。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">沙特经验更丰富。<br><span class="result-badge win">预测：沙特阿拉伯胜</span>&nbsp; <span class="score-pred">预测比分：佛得角 0 : 1 沙特阿拉伯</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round r3">第三轮 · Matchday 3（同时开球）</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇺🇾</span><span class="team-name">乌拉圭</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-H6">-</span>
+          <span class="score-date">6月27日</span>
+          <span class="score-time">北京 08:00</span>
+          <span class="score-venue">🏟 Estadio Akron · 瓜达拉哈拉</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇪🇸</span><span class="team-name">西班牙</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">2010世界杯半决赛翻版！</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">西班牙控球体系更成熟。<br><span class="result-badge draw">预测：势均力敌</span>&nbsp; <span class="score-pred">预测比分：乌拉圭 1 : 1 西班牙</span></div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="tab-panel" id="panel-I">
+    <div class="group-header">
+      <div class="group-label">I</div>
+      <div class="group-teams">
+        <span class="team-chip">🇫🇷 法国</span><span class="team-chip">🇸🇳 塞内加尔</span><span class="team-chip">🇳🇴 挪威</span><span class="team-chip">🇮🇶 伊拉克</span>
+      </div>
+    </div>
+    <div class="matches">
+    <div class="match-card">
+      <div class="match-round">第一轮 · Matchday 1</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇫🇷</span><span class="team-name">法国</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-I1">-</span>
+          <span class="score-date">6月17日</span>
+          <span class="score-time">北京 03:00</span>
+          <span class="score-venue">🏟 MetLife Stadium · 纽约</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇸🇳</span><span class="team-name">塞内加尔</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">姆巴佩领衔的高卢雄鸡首秀。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">法国整体实力高一档。<br><span class="result-badge win">预测：法国胜</span>&nbsp; <span class="score-pred">预测比分：法国 2 : 0 塞内加尔</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第一轮 · Matchday 1</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇮🇶</span><span class="team-name">伊拉克</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-I2">-</span>
+          <span class="score-date">6月17日</span>
+          <span class="score-time">北京 06:00</span>
+          <span class="score-venue">🏟 Gillette Stadium · 波士顿</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇳🇴</span><span class="team-name">挪威</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">哈兰德的世界杯首秀！</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">哈兰德一人足以改变比赛。<br><span class="result-badge win">预测：挪威胜</span>&nbsp; <span class="score-pred">预测比分：伊拉克 0 : 3 挪威</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第二轮 · Matchday 2</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇫🇷</span><span class="team-name">法国</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-I3">-</span>
+          <span class="score-date">6月23日</span>
+          <span class="score-time">北京 05:00</span>
+          <span class="score-venue">🏟 Lincoln Financial Field · 费城</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇮🇶</span><span class="team-name">伊拉克</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">法国轮换阵容出战。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">法国即使轮换也实力碾压。<br><span class="result-badge win">预测：法国大胜</span>&nbsp; <span class="score-pred">预测比分：法国 4 : 0 伊拉克</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第二轮 · Matchday 2</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇳🇴</span><span class="team-name">挪威</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-I4">-</span>
+          <span class="score-date">6月23日</span>
+          <span class="score-time">北京 08:00</span>
+          <span class="score-venue">🏟 MetLife Stadium · 纽约</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇸🇳</span><span class="team-name">塞内加尔</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">哈兰德vs塞内加尔铁血防线！</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">挪威有哈兰德这张王牌。<br><span class="result-badge win">预测：挪威小胜</span>&nbsp; <span class="score-pred">预测比分：挪威 2 : 1 塞内加尔</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round r3">第三轮 · Matchday 3（同时开球）</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇳🇴</span><span class="team-name">挪威</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-I5">-</span>
+          <span class="score-date">6月27日</span>
+          <span class="score-time">北京 03:00</span>
+          <span class="score-venue">🏟 Gillette Stadium · 波士顿</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇫🇷</span><span class="team-name">法国</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">姆巴佩vs哈兰德！当世最强两大前锋正面交锋！</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">法国整体更均衡。<br><span class="result-badge win">预测：法国小胜</span>&nbsp; <span class="score-pred">预测比分：挪威 1 : 2 法国</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round r3">第三轮 · Matchday 3（同时开球）</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇸🇳</span><span class="team-name">塞内加尔</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-I6">-</span>
+          <span class="score-date">6月27日</span>
+          <span class="score-time">北京 03:00</span>
+          <span class="score-venue">🏟 BMO Field · 多伦多</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇮🇶</span><span class="team-name">伊拉克</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">两队争夺小组第三。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">塞内加尔实力明显更强。<br><span class="result-badge win">预测：塞内加尔胜</span>&nbsp; <span class="score-pred">预测比分：塞内加尔 2 : 0 伊拉克</span></div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="tab-panel" id="panel-J">
+    <div class="group-header">
+      <div class="group-label">J</div>
+      <div class="group-teams">
+        <span class="team-chip host">🇦🇷 阿根廷 <small style="opacity:.6">卫冕冠军</small></span><span class="team-chip">🇩🇿 阿尔及利亚</span><span class="team-chip">🇦🇹 奥地利</span><span class="team-chip">🇯🇴 约旦</span>
+      </div>
+    </div>
+    <div class="matches">
+    <div class="match-card">
+      <div class="match-round">第一轮 · Matchday 1</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇦🇷</span><span class="team-name">阿根廷</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-J1">-</span>
+          <span class="score-date">6月17日</span>
+          <span class="score-time">北京 09:00</span>
+          <span class="score-venue">🏟 Arrowhead Stadium · 堪萨斯城</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇩🇿</span><span class="team-name">阿尔及利亚</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">卫冕冠军首战！梅西最后一舞？</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">阿根廷冠军底蕴深厚。<br><span class="result-badge win">预测：阿根廷胜</span>&nbsp; <span class="score-pred">预测比分：阿根廷 2 : 0 阿尔及利亚</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第一轮 · Matchday 1</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇦🇹</span><span class="team-name">奥地利</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-J2">-</span>
+          <span class="score-date">6月17日</span>
+          <span class="score-time">北京 12:00</span>
+          <span class="score-venue">🏟 Levi's Stadium · 圣克拉拉</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇯🇴</span><span class="team-name">约旦</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">奥地利欧洲技术流vs约旦亚洲黑马。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">奥地利整体实力更胜一筹。<br><span class="result-badge win">预测：奥地利胜</span>&nbsp; <span class="score-pred">预测比分：奥地利 2 : 0 约旦</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第二轮 · Matchday 2</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇦🇷</span><span class="team-name">阿根廷</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-J3">-</span>
+          <span class="score-date">6月23日</span>
+          <span class="score-time">北京 01:00</span>
+          <span class="score-venue">🏟 AT&T Stadium · 达拉斯</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇦🇹</span><span class="team-name">奥地利</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">南美冠军vs欧洲硬汉。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">阿根廷技术层面更胜一筹。<br><span class="result-badge win">预测：阿根廷小胜</span>&nbsp; <span class="score-pred">预测比分：阿根廷 2 : 1 奥地利</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第二轮 · Matchday 2</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇯🇴</span><span class="team-name">约旦</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-J4">-</span>
+          <span class="score-date">6月23日</span>
+          <span class="score-time">北京 11:00</span>
+          <span class="score-venue">🏟 Levi's Stadium · 圣克拉拉</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇩🇿</span><span class="team-name">阿尔及利亚</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">两队都需拿分保留出线希望。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">阿尔及利亚个人能力突出。<br><span class="result-badge win">预测：阿尔及利亚胜</span>&nbsp; <span class="score-pred">预测比分：约旦 0 : 2 阿尔及利亚</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round r3">第三轮 · Matchday 3（同时开球）</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇩🇿</span><span class="team-name">阿尔及利亚</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-J5">-</span>
+          <span class="score-date">6月28日</span>
+          <span class="score-time">北京 10:00</span>
+          <span class="score-venue">🏟 Arrowhead Stadium · 堪萨斯城</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇦🇹</span><span class="team-name">奥地利</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">争夺小组第二的生死战。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">旗鼓相当。<br><span class="result-badge draw">预测：平局</span>&nbsp; <span class="score-pred">预测比分：阿尔及利亚 1 : 1 奥地利</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round r3">第三轮 · Matchday 3（同时开球）</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇯🇴</span><span class="team-name">约旦</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-J6">-</span>
+          <span class="score-date">6月28日</span>
+          <span class="score-time">北京 10:00</span>
+          <span class="score-venue">🏟 AT&T Stadium · 达拉斯</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇦🇷</span><span class="team-name">阿根廷</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">约旦面对卫冕冠军的终极考验。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">阿根廷即使轮换实力仍远超。<br><span class="result-badge win">预测：阿根廷胜</span>&nbsp; <span class="score-pred">预测比分：约旦 0 : 3 阿根廷</span></div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="tab-panel" id="panel-K">
+    <div class="group-header">
+      <div class="group-label">K</div>
+      <div class="group-teams">
+        <span class="team-chip">🇵🇹 葡萄牙</span><span class="team-chip">🇺🇿 乌兹别克斯坦</span><span class="team-chip">🇨🇴 哥伦比亚</span><span class="team-chip">🇨🇩 刚果民主共和国</span>
+      </div>
+    </div>
+    <div class="matches">
+    <div class="match-card">
+      <div class="match-round">第一轮 · Matchday 1</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇵🇹</span><span class="team-name">葡萄牙</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-K1">-</span>
+          <span class="score-date">6月18日</span>
+          <span class="score-time">北京 01:00</span>
+          <span class="score-venue">🏟 NRG Stadium · 休斯顿</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇨🇩</span><span class="team-name">刚果民主共和国</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">C罗最后一届世界杯？莱奥和B费领衔。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">葡萄牙技术全面碾压。<br><span class="result-badge win">预测：葡萄牙大胜</span>&nbsp; <span class="score-pred">预测比分：葡萄牙 4 : 0 刚果民主共和国</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第一轮 · Matchday 1</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇺🇿</span><span class="team-name">乌兹别克斯坦</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-K2">-</span>
+          <span class="score-date">6月18日</span>
+          <span class="score-time">北京 10:00</span>
+          <span class="score-venue">🏟 Estadio Azteca · 墨西哥城</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇨🇴</span><span class="team-name">哥伦比亚</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">中亚球队在阿兹特克球场的高原挑战哥伦比亚！</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">哥伦比亚技术和经验均占优。<br><span class="result-badge win">预测：哥伦比亚胜</span>&nbsp; <span class="score-pred">预测比分：乌兹别克斯坦 0 : 2 哥伦比亚</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第二轮 · Matchday 2</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇵🇹</span><span class="team-name">葡萄牙</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-K3">-</span>
+          <span class="score-date">6月24日</span>
+          <span class="score-time">北京 01:00</span>
+          <span class="score-venue">🏟 NRG Stadium · 休斯顿</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇺🇿</span><span class="team-name">乌兹别克斯坦</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">葡萄牙轮换出战。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">葡萄牙轮换阵容仍实力碾压。<br><span class="result-badge win">预测：葡萄牙胜</span>&nbsp; <span class="score-pred">预测比分：葡萄牙 3 : 0 乌兹别克斯坦</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第二轮 · Matchday 2</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇨🇴</span><span class="team-name">哥伦比亚</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-K4">-</span>
+          <span class="score-date">6月24日</span>
+          <span class="score-time">北京 10:00</span>
+          <span class="score-venue">🏟 Estadio Akron · 瓜达拉哈拉</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇨🇩</span><span class="team-name">刚果民主共和国</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">哥伦比亚争夺小组第二的关键战。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">哥伦比亚技术层面远超。<br><span class="result-badge win">预测：哥伦比亚胜</span>&nbsp; <span class="score-pred">预测比分：哥伦比亚 3 : 1 刚果民主共和国</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round r3">第三轮 · Matchday 3（同时开球）</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇨🇴</span><span class="team-name">哥伦比亚</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-K5">-</span>
+          <span class="score-date">6月28日</span>
+          <span class="score-time">北京 07:30</span>
+          <span class="score-venue">🏟 Hard Rock Stadium · 迈阿密</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇵🇹</span><span class="team-name">葡萄牙</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">本组头名之争！两支拉丁风格球队的华丽对决。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">葡萄牙整体更均衡。<br><span class="result-badge draw">预测：平局</span>&nbsp; <span class="score-pred">预测比分：哥伦比亚 1 : 1 葡萄牙</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round r3">第三轮 · Matchday 3（同时开球）</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇨🇩</span><span class="team-name">刚果民主共和国</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-K6">-</span>
+          <span class="score-date">6月28日</span>
+          <span class="score-time">北京 07:30</span>
+          <span class="score-venue">🏟 Mercedes-Benz Stadium · 亚特兰大</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇺🇿</span><span class="team-name">乌兹别克斯坦</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">两队争夺小组第三。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">旗鼓相当。<br><span class="result-badge draw">预测：平局</span>&nbsp; <span class="score-pred">预测比分：刚果民主共和国 1 : 1 乌兹别克斯坦</span></div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="tab-panel" id="panel-L">
+    <div class="group-header">
+      <div class="group-label">L</div>
+      <div class="group-teams">
+        <span class="team-chip">🏴󠁧󠁢󠁥󠁮󠁧󠁿 英格兰</span><span class="team-chip">🇭🇷 克罗地亚</span><span class="team-chip">🇬🇭 加纳</span><span class="team-chip">🇵🇦 巴拿马</span>
+      </div>
+    </div>
+    <div class="matches">
+    <div class="match-card">
+      <div class="match-round">第一轮 · Matchday 1</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><span class="team-name">英格兰</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-L1">-</span>
+          <span class="score-date">6月18日</span>
+          <span class="score-time">北京 04:00</span>
+          <span class="score-venue">🏟 AT&T Stadium · 达拉斯</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇭🇷</span><span class="team-name">克罗地亚</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">2018决赛翻版！莫德里奇最后一届世界杯对阵凯恩的英格兰。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">英格兰年轻冲击力更强。<br><span class="result-badge win">预测：英格兰胜</span>&nbsp; <span class="score-pred">预测比分：英格兰 2 : 1 克罗地亚</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第一轮 · Matchday 1</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇬🇭</span><span class="team-name">加纳</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-L2">-</span>
+          <span class="score-date">6月18日</span>
+          <span class="score-time">北京 07:00</span>
+          <span class="score-venue">🏟 BMO Field · 多伦多</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇵🇦</span><span class="team-name">巴拿马</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">加纳非洲技术流vs巴拿马中北美韧性。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">加纳个人能力和速度均占优。<br><span class="result-badge win">预测：加纳胜</span>&nbsp; <span class="score-pred">预测比分：加纳 2 : 0 巴拿马</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第二轮 · Matchday 2</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><span class="team-name">英格兰</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-L3">-</span>
+          <span class="score-date">6月24日</span>
+          <span class="score-time">北京 04:00</span>
+          <span class="score-venue">🏟 Gillette Stadium · 波士顿</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇬🇭</span><span class="team-name">加纳</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">英格兰vs加纳，2010世界杯苏亚雷斯手球事件的间接渊源。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">英格兰整体实力远超。<br><span class="result-badge win">预测：英格兰胜</span>&nbsp; <span class="score-pred">预测比分：英格兰 3 : 1 加纳</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round">第二轮 · Matchday 2</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇵🇦</span><span class="team-name">巴拿马</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-L4">-</span>
+          <span class="score-date">6月24日</span>
+          <span class="score-time">北京 07:00</span>
+          <span class="score-venue">🏟 BMO Field · 多伦多</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇭🇷</span><span class="team-name">克罗地亚</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">克罗地亚必须取胜保留出线希望。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">克罗地亚技术层面碾压。<br><span class="result-badge win">预测：克罗地亚胜</span>&nbsp; <span class="score-pred">预测比分：巴拿马 0 : 2 克罗地亚</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round r3">第三轮 · Matchday 3（同时开球）</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇵🇦</span><span class="team-name">巴拿马</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-L5">-</span>
+          <span class="score-date">6月28日</span>
+          <span class="score-time">北京 05:00</span>
+          <span class="score-venue">🏟 MetLife Stadium · 纽约</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><span class="team-name">英格兰</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">巴拿马面对英格兰实力差距悬殊。</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">英格兰轮换阵容仍实力远胜。<br><span class="result-badge win">预测：英格兰胜</span>&nbsp; <span class="score-pred">预测比分：巴拿马 0 : 3 英格兰</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-round r3">第三轮 · Matchday 3（同时开球）</div>
+      <div class="match-body">
+        <div class="team-block"><span class="team-flag">🇭🇷</span><span class="team-name">克罗地亚</span></div>
+        <div class="score-block">
+          <span class="score-main" id="score-L6">-</span>
+          <span class="score-date">6月28日</span>
+          <span class="score-time">北京 05:00</span>
+          <span class="score-venue">🏟 Lincoln Financial Field · 费城</span>
+        </div>
+        <div class="team-block right"><span class="team-flag">🇬🇭</span><span class="team-name">加纳</span></div>
+      </div>
+      <div class="match-footer">
+        <div>
+          <div class="mf-label"><span class="dot"></span>比赛看点</div>
+          <div class="mf-text">克罗地亚vs加纳争夺小组第二出线权，莫德里奇最后一舞？</div>
+        </div>
+        <div>
+          <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
+          <div class="mf-text">克罗地亚经验丰富但体能是短板。<br><span class="result-badge draw">预测：势均力敌</span>&nbsp; <span class="score-pred">预测比分：克罗地亚 1 : 1 加纳</span></div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ 射手榜 ═══════════════ -->
+  <div class="tab-panel" id="panel-scorers">
+    <div class="group-header">
+      <div class="group-label" style="font-size:1.6rem;">⚽</div>
+      <div style="flex:1;"><div style="font-size:1.1rem;font-weight:800;color:var(--gold);margin-bottom:2px;">射手榜 · Golden Boot</div><div style="font-size:.78rem;color:var(--text-muted);">实时更新 · 小组赛 + 淘汰赛</div></div>
+      <div class="stat-update-hint" id="scorersUpdateTime">暂无数据</div>
+    </div>
+    <div class="stat-table-wrap">
+      <table class="stat-table"><thead><tr><th class="col-rank">#</th><th class="col-player">球员</th><th class="col-team">球队</th><th class="col-num">进球</th><th class="col-num">点球</th><th class="col-num">出场</th><th class="col-num">分钟</th></tr></thead><tbody id="scorersBody"></tbody></table>
+      <div class="stat-empty" id="scorersEmpty"><div class="stat-empty-icon">🏟️</div><p>比赛尚未开始</p><p class="stat-empty-sub">开赛后每比赛日自动更新射手榜数据</p></div>
+    </div>
+    <div class="stat-note"><div class="mf-label"><span class="dot"></span>数据说明</div><div class="mf-text">• 进球数相同时按助攻数排序，助攻数也相同则按出场时间排序<br>• 点球列标记含点球进球数，不影响总进球统计<br>• 数据将在每比赛日结束后自动更新</div></div>
+  </div>
+
+  <!-- ═══════════════ 助攻榜 ═══════════════ -->
+  <div class="tab-panel" id="panel-assists">
+    <div class="group-header">
+      <div class="group-label" style="font-size:1.6rem;">🅰️</div>
+      <div style="flex:1;"><div style="font-size:1.1rem;font-weight:800;color:var(--gold);margin-bottom:2px;">助攻榜 · Playmaker</div><div style="font-size:.78rem;color:var(--text-muted);">实时更新 · 小组赛 + 淘汰赛</div></div>
+      <div class="stat-update-hint" id="assistsUpdateTime">暂无数据</div>
+    </div>
+    <div class="stat-table-wrap">
+      <table class="stat-table"><thead><tr><th class="col-rank">#</th><th class="col-player">球员</th><th class="col-team">球队</th><th class="col-num">助攻</th><th class="col-num">进球</th><th class="col-num">出场</th><th class="col-num">分钟</th></tr></thead><tbody id="assistsBody"></tbody></table>
+      <div class="stat-empty" id="assistsEmpty"><div class="stat-empty-icon">🏟️</div><p>比赛尚未开始</p><p class="stat-empty-sub">开赛后每比赛日自动更新助攻榜数据</p></div>
+    </div>
+    <div class="stat-note"><div class="mf-label"><span class="dot"></span>数据说明</div><div class="mf-text">• 助攻数相同时按进球数排序，进球数也相同则按出场时间排序<br>• 助攻认定以 FIFA 官方统计为准（最后一传制造进球）<br>• 数据将在每比赛日结束后自动更新</div></div>
+  </div>
+</main>
+<footer>数据来源：FIFA 官方 | 时间均为北京时间（CST = ET + 12h）| 比赛结果将在赛后自动更新</footer>
+<script>
+// ===== Tab 切换（最原始兼容写法） =====
+function switchTab(tabName) {
+  // 切换按钮高亮
+  var btns = document.getElementsByTagName('button');
+  for (var i = 0; i < btns.length; i++) {
+    var b = btns[i];
+    if (b.className.indexOf('tab-btn') === -1) continue;
+    if (b.getAttribute('onclick') && b.getAttribute('onclick').indexOf(tabName) > -1) {
+      b.className = 'tab-btn active';
+    } else {
+      b.className = 'tab-btn';
+    }
+  }
+  // 切换面板显示
+  var panels = document.getElementsByTagName('div');
+  for (var j = 0; j < panels.length; j++) {
+    var p = panels[j];
+    if (p.className.indexOf('tab-panel') === -1) continue;
+    if (p.id === 'panel-' + tabName) {
+      p.className = 'tab-panel active';
+    } else {
+      p.className = 'tab-panel';
+    }
+  }
+}
+
+// ===== 比分数据 =====
+var results = {
+  'A1':{home:null,away:null},'A2':{home:null,away:null},'A3':{home:null,away:null},
+  'A4':{home:null,away:null},'A5':{home:null,away:null},'A6':{home:null,away:null},
+  'B1':{home:null,away:null},'B2':{home:null,away:null},'B3':{home:null,away:null},
+  'B4':{home:null,away:null},'B5':{home:null,away:null},'B6':{home:null,away:null},
+  'C1':{home:null,away:null},'C2':{home:null,away:null},'C3':{home:null,away:null},
+  'C4':{home:null,away:null},'C5':{home:null,away:null},'C6':{home:null,away:null},
+  'D1':{home:null,away:null},'D2':{home:null,away:null},'D3':{home:null,away:null},
+  'D4':{home:null,away:null},'D5':{home:null,away:null},'D6':{home:null,away:null},
+  'E1':{home:null,away:null},'E2':{home:null,away:null},'E3':{home:null,away:null},
+  'E4':{home:null,away:null},'E5':{home:null,away:null},'E6':{home:null,away:null},
+  'F1':{home:null,away:null},'F2':{home:null,away:null},'F3':{home:null,away:null},
+  'F4':{home:null,away:null},'F5':{home:null,away:null},'F6':{home:null,away:null},
+  'G1':{home:null,away:null},'G2':{home:null,away:null},'G3':{home:null,away:null},
+  'G4':{home:null,away:null},'G5':{home:null,away:null},'G6':{home:null,away:null},
+  'H1':{home:null,away:null},'H2':{home:null,away:null},'H3':{home:null,away:null},
+  'H4':{home:null,away:null},'H5':{home:null,away:null},'H6':{home:null,away:null},
+  'I1':{home:null,away:null},'I2':{home:null,away:null},'I3':{home:null,away:null},
+  'I4':{home:null,away:null},'I5':{home:null,away:null},'I6':{home:null,away:null},
+  'J1':{home:null,away:null},'J2':{home:null,away:null},'J3':{home:null,away:null},
+  'J4':{home:null,away:null},'J5':{home:null,away:null},'J6':{home:null,away:null},
+  'K1':{home:null,away:null},'K2':{home:null,away:null},'K3':{home:null,away:null},
+  'K4':{home:null,away:null},'K5':{home:null,away:null},'K6':{home:null,away:null},
+  'L1':{home:null,away:null},'L2':{home:null,away:null},'L3':{home:null,away:null},
+  'L4':{home:null,away:null},'L5':{home:null,away:null},'L6':{home:null,away:null}
+};
+
+function renderScores() {
+  var keys = Object.keys(results);
+  for (var k = 0; k < keys.length; k++) {
+    var id = keys[k];
+    var r = results[id];
+    var el = document.getElementById('score-' + id);
+    if (!el) continue;
+    if (r.home !== null && r.away !== null) {
+      el.textContent = r.home + ' : ' + r.away;
+      el.className = el.className.replace(/\bempty\b/g, '').trim();
+      el.style.color = 'var(--gold)';
+    } else {
+      el.textContent = '-';
+      if (el.className.indexOf('empty') === -1) el.className += ' empty';
+    }
+  }
+}
+renderScores();
+
+// ===== 射手榜 & 助攻榜 =====
+var scorersData = [];
+var assistsData = [];
+
+function renderScorers() {
+  var t = document.getElementById('scorersBody');
+  var e = document.getElementById('scorersEmpty');
+  var h = document.getElementById('scorersUpdateTime');
+  if (!scorersData.length) { t.innerHTML = ''; e.style.display = 'flex'; return; }
+  e.style.display = 'none';
+  h.textContent = '更新于 ' + new Date().toLocaleDateString('zh-CN');
+  var s = scorersData.slice().sort(function(a,b){ return b.goals-a.goals || b.assists-a.assists || a.minutes-b.minutes; });
+  t.innerHTML = s.map(function(p,i) {
+    var rc = i < 3 ? 'rank-' + (i+1) : '';
+    return '<tr class="' + rc + '"><td>' + (i+1) + '</td><td><span class="player-flag">' + p.flag + '</span>' + p.name + '</td><td>' + p.team + '</td><td class="col-num" style="color:var(--gold);font-size:.95rem;">' + p.goals + '</td><td class="col-num">' + p.penalties + '</td><td class="col-num">' + p.appearances + '</td><td class="col-num">' + p.minutes + "'</td></tr>";
+  }).join('');
+}
+
+function renderAssists() {
+  var t = document.getElementById('assistsBody');
+  var e = document.getElementById('assistsEmpty');
+  var h = document.getElementById('assistsUpdateTime');
+  if (!assistsData.length) { t.innerHTML = ''; e.style.display = 'flex'; return; }
+  e.style.display = 'none';
+  h.textContent = '更新于 ' + new Date().toLocaleDateString('zh-CN');
+  var s = assistsData.slice().sort(function(a,b){ return b.assists-a.assists || b.goals-a.goals || a.minutes-b.minutes; });
+  t.innerHTML = s.map(function(p,i) {
+    var rc = i < 3 ? 'rank-' + (i+1) : '';
+    return '<tr class="' + rc + '"><td>' + (i+1) + '</td><td><span class="player-flag">' + p.flag + '</span>' + p.name + '</td><td>' + p.team + '</td><td class="col-num" style="color:var(--accent2);font-size:.95rem;">' + p.assists + '</td><td class="col-num">' + p.goals + '</td><td class="col-num">' + p.appearances + '</td><td class="col-num">' + p.minutes + "'</td></tr>";
+  }).join('');
+}
+
+renderScorers();
+renderAssists();
+</script>
+</body>
+</html>
