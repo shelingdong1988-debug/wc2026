@@ -131,7 +131,7 @@
         </div>
         <div>
           <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
-          <div class="mf-text">东道主优势明显，高原+10万球迷加持，南非客场适应性存疑。<br><span class="result-badge win">预测：墨西哥胜</span>&nbsp; <span class="score-pred">预测比分：墨西哥 2 : 0 南非</span></div>
+          <div class="mf-text">东道主优势明显，高原+10万球迷加持，南非客场适应性存疑。<br><span class="result-badge win">✅ 预测命中！墨西哥 2 : 0 南非</span>&nbsp; 基尼奥内斯9分钟首球，希门尼斯67分钟锁定胜局</div>
         </div>
       </div>
     </div>
@@ -154,7 +154,7 @@
         </div>
         <div>
           <div class="mf-label"><span class="dot pred"></span>比赛预测</div>
-          <div class="mf-text">两队实力相近，韩国整体配合更默契，孙兴慜个人能力可成胜负手。<br><span class="result-badge win">预测：韩国小胜</span>&nbsp; <span class="score-pred">预测比分：韩国 2 : 1 捷克</span></div>
+          <div class="mf-text">两队实力相近，韩国整体配合更默契，孙兴慜个人能力可成胜负手。<br><span class="result-badge win">✅ 预测命中！韩国 2 : 1 捷克</span>&nbsp; 克雷伊奇先拔头筹，黄仁范扳平+助攻吴贤揆逆转</div>
         </div>
       </div>
     </div>
@@ -1939,7 +1939,7 @@ function switchTab(tabName) {
 
 // ===== 比分数据 =====
 var results = {
-  'A1':{home:null,away:null},'A2':{home:null,away:null},'A3':{home:null,away:null},
+  'A1':{home:2,away:0},'A2':{home:2,away:1},'A3':{home:null,away:null},
   'A4':{home:null,away:null},'A5':{home:null,away:null},'A6':{home:null,away:null},
   'B1':{home:null,away:null},'B2':{home:null,away:null},'B3':{home:null,away:null},
   'B4':{home:null,away:null},'B5':{home:null,away:null},'B6':{home:null,away:null},
@@ -1985,8 +1985,20 @@ function renderScores() {
 renderScores();
 
 // ===== 射手榜 & 助攻榜 =====
-var scorersData = [];
-var assistsData = [];
+var scorersData = [
+  {flag:'🇰🇷',name:'黄仁范',team:'韩国',goals:1,penalties:0,appearances:1,minutes:90},
+  {flag:'🇲🇽',name:'基尼奥内斯',team:'墨西哥',goals:1,penalties:0,appearances:1,minutes:90},
+  {flag:'🇲🇽',name:'劳尔·希门尼斯',team:'墨西哥',goals:1,penalties:0,appearances:1,minutes:90},
+  {flag:'🇰🇷',name:'吴贤揆',team:'韩国',goals:1,penalties:0,appearances:1,minutes:75},
+  {flag:'🇨🇿',name:'克雷伊奇',team:'捷克',goals:1,penalties:0,appearances:1,minutes:90}
+];
+var assistsData = [
+  {flag:'🇰🇷',name:'黄仁范',team:'韩国',assists:1,goals:1,appearances:1,minutes:90},
+  {flag:'🇲🇽',name:'埃里克·利拉',team:'墨西哥',assists:1,goals:0,appearances:1,minutes:90},
+  {flag:'🇲🇽',name:'阿尔瓦拉多',team:'墨西哥',assists:1,goals:0,appearances:1,minutes:90},
+  {flag:'🇨🇿',name:'库法尔',team:'捷克',assists:1,goals:0,appearances:1,minutes:90},
+  {flag:'🇰🇷',name:'李刚仁',team:'韩国',assists:1,goals:0,appearances:1,minutes:75}
+];
 
 function renderScorers() {
   var t = document.getElementById('scorersBody');
