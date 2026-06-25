@@ -103,7 +103,7 @@
 </header>
 <main>
   <nav class="tab-nav" id="tabNav">
-    <button class="tab-btn active" data-tab="A"  onclick="switchTab('A')">A 组</button><button class="tab-btn" data-tab="B"  onclick="switchTab('B')">B 组</button><button class="tab-btn" data-tab="C"  onclick="switchTab('C')">C 组</button><button class="tab-btn" data-tab="D"  onclick="switchTab('D')">D 组</button><button class="tab-btn" data-tab="E"  onclick="switchTab('E')">E 组</button><button class="tab-btn" data-tab="F"  onclick="switchTab('F')">F 组</button><button class="tab-btn" data-tab="G"  onclick="switchTab('G')">G 组</button><button class="tab-btn" data-tab="H"  onclick="switchTab('H')">H 组</button><button class="tab-btn" data-tab="I"  onclick="switchTab('I')">I 组</button><button class="tab-btn" data-tab="J"  onclick="switchTab('J')">J 组</button><button class="tab-btn" data-tab="K"  onclick="switchTab('K')">K 组</button><button class="tab-btn" data-tab="L"  onclick="switchTab('L')">L 组</button><span style="width:1px;height:24px;background:var(--border);margin:0 4px;align-self:center;"></span><button class="tab-btn" data-tab="scorers"  onclick="switchTab('scorers')">⚽ 射手榜</button><button class="tab-btn" data-tab="assists"  onclick="switchTab('assists')">🅰️ 助攻榜</button>
+    <button class="tab-btn active" data-tab="A">A 组</button><button class="tab-btn" data-tab="B">B 组</button><button class="tab-btn" data-tab="C">C 组</button><button class="tab-btn" data-tab="D">D 组</button><button class="tab-btn" data-tab="E">E 组</button><button class="tab-btn" data-tab="F">F 组</button><button class="tab-btn" data-tab="G">G 组</button><button class="tab-btn" data-tab="H">H 组</button><button class="tab-btn" data-tab="I">I 组</button><button class="tab-btn" data-tab="J">J 组</button><button class="tab-btn" data-tab="K">K 组</button><button class="tab-btn" data-tab="L">L 组</button><span style="width:1px;height:24px;background:var(--border);margin:0 4px;align-self:center;"></span><button class="tab-btn" data-tab="scorers">⚽ 射手榜</button><button class="tab-btn" data-tab="assists">🅰️ 助攻榜</button>
   </nav>
   <div class="tab-panel active" id="panel-A">
     <div class="group-header">
@@ -1876,30 +1876,26 @@
 </main>
 <footer>数据来源：FIFA 官方 | 时间均为北京时间（CST = ET + 12h）| 比赛结果将在赛后自动更新</footer>
 <script>
-// ===== Tab 切换（最原始兼容写法） =====
-function switchTab(tabName) {
-  // 切换按钮高亮 - 使用精确匹配避免部分匹配bug
-  var btns = document.querySelectorAll('.tab-btn');
-  for (var i = 0; i < btns.length; i++) {
-    var b = btns[i];
-    var btnTab = b.getAttribute('data-tab');
-    if (btnTab === tabName) {
-      b.className = 'tab-btn active';
-    } else {
-      b.className = 'tab-btn';
+// ===== Tab 切换（事件委托，兼容所有浏览器） =====
+(function(){
+  var nav = document.getElementById('tabNav');
+  if(!nav) return;
+  nav.addEventListener('click', function(e){
+    var btn = e.target;
+    while(btn && !btn.getAttribute('data-tab')){ btn = btn.parentElement; }
+    if(!btn || btn === nav) return;
+    var tabName = btn.getAttribute('data-tab');
+    // 切换按钮高亮
+    var btns = nav.querySelectorAll('.tab-btn');
+    for(var i=0;i<btns.length;i++){ btns[i].className = 'tab-btn'; }
+    btn.className = 'tab-btn active';
+    // 切换面板显示
+    var panels = document.querySelectorAll('.tab-panel');
+    for(var j=0;j<panels.length;j++){
+      panels[j].className = (panels[j].id === 'panel-'+tabName) ? 'tab-panel active' : 'tab-panel';
     }
-  }
-  // 切换面板显示
-  var panels = document.querySelectorAll('.tab-panel');
-  for (var j = 0; j < panels.length; j++) {
-    var p = panels[j];
-    if (p.id === 'panel-' + tabName) {
-      p.className = 'tab-panel active';
-    } else {
-      p.className = 'tab-panel';
-    }
-  }
-}
+  });
+})();
 
 // ===== 比分数据 =====
 var results = {
