@@ -103,7 +103,7 @@
 </header>
 <main>
   <nav class="tab-nav" id="tabNav">
-    <button class="tab-btn active" data-tab="A">A 组</button><button class="tab-btn" data-tab="B">B 组</button><button class="tab-btn" data-tab="C">C 组</button><button class="tab-btn" data-tab="D">D 组</button><button class="tab-btn" data-tab="E">E 组</button><button class="tab-btn" data-tab="F">F 组</button><button class="tab-btn" data-tab="G">G 组</button><button class="tab-btn" data-tab="H">H 组</button><button class="tab-btn" data-tab="I">I 组</button><button class="tab-btn" data-tab="J">J 组</button><button class="tab-btn" data-tab="K">K 组</button><button class="tab-btn" data-tab="L">L 组</button><span style="width:1px;height:24px;background:var(--border);margin:0 4px;align-self:center;"></span><button class="tab-btn" data-tab="scorers">⚽ 射手榜</button><button class="tab-btn" data-tab="assists">🅰️ 助攻榜</button>
+    <button class="tab-btn active" data-tab="A" onclick="switchTab('A')">A 组</button><button class="tab-btn" data-tab="B" onclick="switchTab('B')">B 组</button><button class="tab-btn" data-tab="C" onclick="switchTab('C')">C 组</button><button class="tab-btn" data-tab="D" onclick="switchTab('D')">D 组</button><button class="tab-btn" data-tab="E" onclick="switchTab('E')">E 组</button><button class="tab-btn" data-tab="F" onclick="switchTab('F')">F 组</button><button class="tab-btn" data-tab="G" onclick="switchTab('G')">G 组</button><button class="tab-btn" data-tab="H" onclick="switchTab('H')">H 组</button><button class="tab-btn" data-tab="I" onclick="switchTab('I')">I 组</button><button class="tab-btn" data-tab="J" onclick="switchTab('J')">J 组</button><button class="tab-btn" data-tab="K" onclick="switchTab('K')">K 组</button><button class="tab-btn" data-tab="L" onclick="switchTab('L')">L 组</button><span style="width:1px;height:24px;background:var(--border);margin:0 4px;align-self:center;"></span><button class="tab-btn" data-tab="scorers" onclick="switchTab('scorers')">⚽ 射手榜</button><button class="tab-btn" data-tab="assists" onclick="switchTab('assists')">🅰️ 助攻榜</button>
   </nav>
   <div class="tab-panel active" id="panel-A">
     <div class="group-header">
@@ -1876,26 +1876,14 @@
 </main>
 <footer>数据来源：FIFA 官方 | 时间均为北京时间（CST = ET + 12h）| 比赛结果将在赛后自动更新</footer>
 <script>
-// ===== Tab 切换（事件委托，兼容所有浏览器） =====
-(function(){
-  var nav = document.getElementById('tabNav');
-  if(!nav) return;
-  nav.addEventListener('click', function(e){
-    var btn = e.target;
-    while(btn && !btn.getAttribute('data-tab')){ btn = btn.parentElement; }
-    if(!btn || btn === nav) return;
-    var tabName = btn.getAttribute('data-tab');
-    // 切换按钮高亮
-    var btns = nav.querySelectorAll('.tab-btn');
-    for(var i=0;i<btns.length;i++){ btns[i].className = 'tab-btn'; }
-    btn.className = 'tab-btn active';
-    // 切换面板显示
-    var panels = document.querySelectorAll('.tab-panel');
-    for(var j=0;j<panels.length;j++){
-      panels[j].className = (panels[j].id === 'panel-'+tabName) ? 'tab-panel active' : 'tab-panel';
-    }
-  });
-})();
+function switchTab(t){
+  var btns=document.querySelectorAll('.tab-btn');
+  for(var i=0;i<btns.length;i++) btns[i].className='tab-btn';
+  var b=document.querySelector('[data-tab="'+t+'"]');
+  if(b) b.className='tab-btn active';
+  var ps=document.querySelectorAll('.tab-panel');
+  for(var j=0;j<ps.length;j++) ps[j].className=(ps[j].id==='panel-'+t)?'tab-panel active':'tab-panel';
+}
 
 // ===== 比分数据 =====
 var results = {
@@ -2051,7 +2039,8 @@ var scorersData = [
   {flag:'🇺🇿',name:'内马托夫',team:'乌兹别克斯坦',goals:1,penalties:0,appearances:2,minutes:180},
   {flag:'🇨🇴',name:'穆尼奥斯',team:'哥伦比亚',goals:1,penalties:0,appearances:2,minutes:180},
   {flag:'🇭🇷',name:'布迪米尔',team:'克罗地亚',goals:1,penalties:0,appearances:2,minutes:90},
-  {flag:'🇲🇽',name:'查韦斯',team:'墨西哥',goals:1,penalties:0,appearances:1,minutes:90},
+  {flag:'🇲🇽',name:'查韦斯',team:'墨西哥',goals:1,penalties:0,appearances:1,minutes:90}
+];
 var assistsData = [
   {flag:'🇩🇪',name:'基米希',team:'德国',assists:2,goals:0,appearances:1,minutes:90},
   {flag:'🇺🇸',name:'麦肯尼',team:'美国',assists:1,goals:0,appearances:1,minutes:90},
