@@ -103,7 +103,7 @@
 </header>
 <main>
   <nav class="tab-nav" id="tabNav">
-    <button class="tab-btn active" onclick="switchTab('A')">A 组</button><button class="tab-btn" onclick="switchTab('B')">B 组</button><button class="tab-btn" onclick="switchTab('C')">C 组</button><button class="tab-btn" onclick="switchTab('D')">D 组</button><button class="tab-btn" onclick="switchTab('E')">E 组</button><button class="tab-btn" onclick="switchTab('F')">F 组</button><button class="tab-btn" onclick="switchTab('G')">G 组</button><button class="tab-btn" onclick="switchTab('H')">H 组</button><button class="tab-btn" onclick="switchTab('I')">I 组</button><button class="tab-btn" onclick="switchTab('J')">J 组</button><button class="tab-btn" onclick="switchTab('K')">K 组</button><button class="tab-btn" onclick="switchTab('L')">L 组</button><span style="width:1px;height:24px;background:var(--border);margin:0 4px;align-self:center;"></span><button class="tab-btn" onclick="switchTab('scorers')">⚽ 射手榜</button><button class="tab-btn" onclick="switchTab('assists')">🅰️ 助攻榜</button>
+    <button class="tab-btn active" data-tab="A"  onclick="switchTab('A')">A 组</button><button class="tab-btn" data-tab="B"  onclick="switchTab('B')">B 组</button><button class="tab-btn" data-tab="C"  onclick="switchTab('C')">C 组</button><button class="tab-btn" data-tab="D"  onclick="switchTab('D')">D 组</button><button class="tab-btn" data-tab="E"  onclick="switchTab('E')">E 组</button><button class="tab-btn" data-tab="F"  onclick="switchTab('F')">F 组</button><button class="tab-btn" data-tab="G"  onclick="switchTab('G')">G 组</button><button class="tab-btn" data-tab="H"  onclick="switchTab('H')">H 组</button><button class="tab-btn" data-tab="I"  onclick="switchTab('I')">I 组</button><button class="tab-btn" data-tab="J"  onclick="switchTab('J')">J 组</button><button class="tab-btn" data-tab="K"  onclick="switchTab('K')">K 组</button><button class="tab-btn" data-tab="L"  onclick="switchTab('L')">L 组</button><span style="width:1px;height:24px;background:var(--border);margin:0 4px;align-self:center;"></span><button class="tab-btn" data-tab="scorers"  onclick="switchTab('scorers')">⚽ 射手榜</button><button class="tab-btn" data-tab="assists"  onclick="switchTab('assists')">🅰️ 助攻榜</button>
   </nav>
   <div class="tab-panel active" id="panel-A">
     <div class="group-header">
@@ -1878,22 +1878,21 @@
 <script>
 // ===== Tab 切换（最原始兼容写法） =====
 function switchTab(tabName) {
-  // 切换按钮高亮
-  var btns = document.getElementsByTagName('button');
+  // 切换按钮高亮 - 使用精确匹配避免部分匹配bug
+  var btns = document.querySelectorAll('.tab-btn');
   for (var i = 0; i < btns.length; i++) {
     var b = btns[i];
-    if (b.className.indexOf('tab-btn') === -1) continue;
-    if (b.getAttribute('onclick') && b.getAttribute('onclick').indexOf(tabName) > -1) {
+    var btnTab = b.getAttribute('data-tab');
+    if (btnTab === tabName) {
       b.className = 'tab-btn active';
     } else {
       b.className = 'tab-btn';
     }
   }
   // 切换面板显示
-  var panels = document.getElementsByTagName('div');
+  var panels = document.querySelectorAll('.tab-panel');
   for (var j = 0; j < panels.length; j++) {
     var p = panels[j];
-    if (p.className.indexOf('tab-panel') === -1) continue;
     if (p.id === 'panel-' + tabName) {
       p.className = 'tab-panel active';
     } else {
