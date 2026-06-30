@@ -2058,7 +2058,7 @@ var scorersData = [
   {flag:'🇩🇪',name:'翁达夫',team:'德国',goals:2,penalties:0,appearances:2,minutes:125},
   {flag:'🇨🇮',name:'凯西',team:'科特迪瓦',goals:1,penalties:0,appearances:2,minutes:180},
   {flag:'🇳🇱',name:'布罗贝',team:'荷兰',goals:2,penalties:0,appearances:2,minutes:180},
-  {flag:'🇳🇱',name:'加克波',team:'荷兰',goals:2,penalties:0,appearances:2,minutes:180},
+  {flag:'🇳🇱',name:'加克波',team:'荷兰',goals:3,penalties:0,appearances:3,minutes:270},
   {flag:'🇳🇱',name:'萨默维尔',team:'荷兰',goals:1,penalties:0,appearances:2,minutes:45},
   {flag:'🇸🇪',name:'埃兰加',team:'瑞典',goals:1,penalties:0,appearances:2,minutes:90},
   {flag:'🇯🇵',name:'镰田大地',team:'日本',goals:1,penalties:0,appearances:2,minutes:179},
@@ -2122,6 +2122,7 @@ var scorersData = [
   {flag:'🇧🇷',name:'马丁内利',team:'巴西',goals:1,penalties:0,appearances:1,minutes:15},
   {flag:'🇯🇵',name:'佐野海舟',team:'日本',goals:1,penalties:0,appearances:1,minutes:90},
   {flag:'🇵🇾',name:'恩西索',team:'巴拉圭',goals:1,penalties:0,appearances:1,minutes:90},
+  {flag:'🇲🇦',name:'伊萨·迪奥普',team:'摩洛哥',goals:1,penalties:0,appearances:1,minutes:90},
 ];
 var assistsData = [
   {flag:'🇩🇪',name:'基米希',team:'德国',assists:2,goals:0,appearances:1,minutes:90},
@@ -2167,7 +2168,7 @@ var assistsData = [
   {flag:'🇯🇵',name:'上田绮世',team:'日本',assists:1,goals:2,appearances:2,minutes:180},
   {flag:'🇯🇵',name:'佐野海舟',team:'日本',assists:1,goals:0,appearances:1,minutes:90},
   {flag:'🇳🇱',name:'邓弗里斯',team:'荷兰',assists:2,goals:0,appearances:2,minutes:180},
-  {flag:'🇳🇱',name:'加克波',team:'荷兰',assists:1,goals:2,appearances:2,minutes:180},
+  {flag:'🇳🇱',name:'加克波',team:'荷兰',assists:1,goals:3,appearances:3,minutes:270},
   {flag:'🇸🇪',name:'伊萨克',team:'瑞典',assists:1,goals:1,appearances:2,minutes:180},
   {flag:'🇪🇸',name:'奥亚萨瓦尔',team:'西班牙',assists:1,goals:2,appearances:1,minutes:90},
   {flag:'🇺🇾',name:'马克西·阿劳霍',team:'乌拉圭',assists:1,goals:2,appearances:2,minutes:180},
@@ -2246,7 +2247,7 @@ function switchKoTab(t){
 }
 
 var knockoutResults = {
-  'R32-1':{home:0,away:1},'R32-2':{home:2,away:1},'R32-3':{home:1,away:1},'R32-4':{home:null,away:null},
+  'R32-1':{home:0,away:1},'R32-2':{home:2,away:1},'R32-3':{home:1,away:1},'R32-4':{home:1,away:1},
   'R32-5':{home:null,away:null},'R32-6':{home:null,away:null},'R32-7':{home:null,away:null},'R32-8':{home:null,away:null},
   'R32-9':{home:null,away:null},'R32-10':{home:null,away:null},'R32-11':{home:null,away:null},'R32-12':{home:null,away:null},
   'R32-13':{home:null,away:null},'R32-14':{home:null,away:null},'R32-15':{home:null,away:null},'R32-16':{home:null,away:null},
@@ -2269,7 +2270,7 @@ var knockoutMatches = {
      mfText:'德国小组赛7-1狂胜库拉索攻击力惊人！穆西亚拉+维尔茨+哈弗茨组成豪华攻击线，布朗中场调度稳健。巴拉圭防守严密仅失1球，阿尔米隆解禁复出增强反击威胁。<br><span class="update-tag">🆕 最新</span> 北京时间6月30日04:30完赛，本届世界杯<strong>首场点球大战</strong>诞生！巴拉圭<strong>恩西索第42分钟</strong>先入一球，德国<strong>哈弗茨第54分钟</strong>扳平，常规时间1-1战平；加时赛双方均无建树，点球大战巴拉圭4-3淘汰夺冠热门德国，时隔16年再进16强。<br><span class="result-badge lose">❌ 预测未中！预测比分 2 : 1，实际比分 1 : 1</span><br><span class="result-badge lose">❌ 晋级预测未中！预测德国晋级，实际巴拉圭晋级</span>',
      predText:'德国高压逼抢+快速传递碾压巴拉圭低位防守，实力差距明显。Sports Mole预测德国2-1晋级。',predBadge:'win',predLabel:'德国晋级',predScore:'德国晋级',regTimePred:'2 : 1'},
     {id:'R32-4',homeFlag:'🇳🇱',homeName:'荷兰',awayFlag:'🇲🇦',awayName:'摩洛哥',date:'6月30日',time:'09:00',venue:'蒙特雷 · BBVA体育场',round:'1/16决赛 · 第4场',
-     mfText:'荷兰身体优势对摩洛哥防守组织与快速转换！加克波3球+邓弗里斯2助攻状态正佳；摩洛哥非洲杯冠军班底，阿什拉夫边路威胁大，卜拉欣·迪亚斯2助攻创造性强。摩洛哥阵中多名荷兰出生球员更添话题性。<br><span class="update-tag">🆕 最新</span> 荷兰<strong>弗兰基·德容末轮伤退，出战成疑</strong>，布罗比已通过体测可首发，范德芬将取代阿克出任左后卫。摩洛哥阵容齐整，<strong>马兹拉维、阿姆拉巴特、奥纳希</strong>等主力回归，塞巴里3球状态火热。Sports Mole直接预测摩洛哥2-1爆冷晋级。',
+     mfText:'荷兰身体优势对摩洛哥防守组织与快速转换！加克波3球+邓弗里斯2助攻状态正佳；摩洛哥非洲杯冠军班底，阿什拉夫边路威胁大，卜拉欣·迪亚斯2助攻创造性强。摩洛哥阵中多名荷兰出生球员更添话题性。<br><span class="update-tag">🆕 最新</span> 荷兰<strong>弗兰基·德容末轮伤退，出战成疑</strong>，布罗比已通过体测可首发，范德芬将取代阿克出任左后卫。摩洛哥阵容齐整，<strong>马兹拉维、阿姆拉巴特、奥纳希</strong>等主力回归，塞巴里3球状态火热。Sports Mole直接预测摩洛哥2-1爆冷晋级。<br><span class="update-tag">🆕 最新</span> 北京时间6月30日09:00完赛，<strong>加克波第72分钟</strong>为荷兰首开纪录，<strong>伊萨·迪奥普第91分钟头球绝平</strong>！加时赛无进球，点球大战摩洛哥3-2胜出，塞巴里打入制胜点球，布努扑出萨默维尔关键点球。<br><span class="result-badge draw">✅ 预测方向命中！预测比分 1 : 1，实际比分 1 : 1</span><br><span class="result-badge win">✅ 晋级预测命中！预测摩洛哥晋级，实际摩洛哥晋级</span>',
      predText:'德容伤情削弱荷兰中场组织，摩洛哥阵容齐整+杯赛经验丰富。看好90分钟战平，摩洛哥加时/点球晋级。',predBadge:'draw',predLabel:'摩洛哥晋级（加时/点球）',predScore:'摩洛哥晋级（加时/点球）',regTimePred:'1 : 1'},
     {id:'R32-5',homeFlag:'🇨🇮',homeName:'科特迪瓦',awayFlag:'🇳🇴',awayName:'挪威',date:'7月1日',time:'01:00',venue:'达拉斯 · AT&T体育场',round:'1/16决赛 · 第5场',
      mfText:'哈兰德+厄德高领衔挪威28年来首次世界杯回归！哈兰德4球进球机器状态极佳，厄德高组织核心助攻能力强。科特迪瓦队史首次小组出线，19岁天才迪奥曼德是亮点。两队都渴望证明自己能走得更远。<br><span class="update-tag">🆕 最新</span> 科特迪瓦主帅法埃强调会利用身体对抗掌控节奏；挪威主帅索尔巴肯称必须匹配对手身体素质，这会是势均力敌的比赛。科特迪瓦中卫<strong>辛戈腿筋伤势出战成疑</strong>，迪奥曼德+科苏努有望搭档中卫。挪威右后卫<strong>赖尔森大腿伤势</strong>好转但存疑，如缺阵奥尔斯内斯可能客串右路。哈兰德本届4球，国家队52场59球效率惊人。各方看好挪威小胜晋级。',
@@ -2309,8 +2310,8 @@ var knockoutMatches = {
      predText:'哥伦比亚整体实力+大赛经验占优，加纳防守反击有一定威胁。',predBadge:'win',predLabel:'哥伦比亚晋级',predScore:'哥伦比亚晋级',regTimePred:'2 : 1'}
   ],
   r16:[
-    {id:'R16-1',homeFlag:'🇨🇦',homeName:'加拿大',awayFlag:'',awayName:'1/16决赛第4场胜者',date:'7月5日',time:'01:00',venue:'休斯顿 · NRG体育场',round:'1/8决赛 · 第1场',
-     mfText:'加拿大已确定晋级！1/16决赛补时绝杀南非首次闯入16强，乔纳森·大卫4球状态火热。对手将是荷兰vs摩洛哥胜者。',predText:'加拿大东道主气势正盛，但整体实力仍逊于潜在的荷兰。',predBadge:'draw',predLabel:'预测：待定',predScore:'待定',regTimePred:'- : -'},
+    {id:'R16-1',homeFlag:'🇨🇦',homeName:'加拿大',awayFlag:'🇲🇦',awayName:'摩洛哥',date:'7月5日',time:'01:00',venue:'休斯顿 · NRG体育场',round:'1/8决赛 · 第1场',
+     mfText:'加拿大已确定晋级！1/16决赛补时绝杀南非首次闯入16强，乔纳森·大卫4球状态火热。对手确定为摩洛哥——摩洛哥点球淘汰荷兰，防守坚韧、杯赛经验丰富。<br><span class="update-tag">🆕 最新</span> R32-4结果出炉：摩洛哥常规时间1-1战平荷兰，点球大战3-2晋级，伊萨·迪奥普第91分钟绝平，塞巴里打入制胜点球。加拿大坐拥休斯顿主场，但摩洛哥防守反击+布努门神加持不容小觑。',predText:'加拿大东道主气势正盛，但摩洛哥淘汰赛经验更丰富，且常规时间战平能力强。预测常规时间1-1，摩洛哥加时/点球晋级。',predBadge:'draw',predLabel:'摩洛哥晋级（加时/点球）',predScore:'摩洛哥晋级（加时/点球）',regTimePred:'1 : 1'},
     {id:'R16-2',homeFlag:'🇵🇾',homeName:'巴拉圭',awayFlag:'',awayName:'1/16决赛第5场胜者',date:'7月5日',time:'05:00',venue:'费城 · Lincoln Financial',round:'1/8决赛 · 第2场',
      mfText:'<span class="update-tag">🆕 最新</span> 巴拉圭点球大战爆冷淘汰德国，时隔16年再进16强！将对阵科特迪瓦/挪威胜者，哈兰德领衔的挪威是大概率对手。',predText:'巴拉圭士气高涨但体能消耗大，挪威整体实力+哈兰德冲击力占优。待R32-5结果后更新最终预测。',predBadge:'draw',predLabel:'预测：待定',predScore:'待定',regTimePred:'- : -'},
     {id:'R16-3',homeFlag:'🇧🇷',homeName:'巴西',awayFlag:'',awayName:'1/16决赛第6场胜者',date:'7月6日',time:'04:00',venue:'新泽西 · 大都会人寿体育场',round:'1/8决赛 · 第3场',
