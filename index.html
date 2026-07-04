@@ -1974,7 +1974,7 @@ renderScores();
 
 // ===== 射手榜 & 助攻榜 =====
 var scorersData = [
-  {flag:'🇦🇷',name:'梅西',team:'阿根廷',goals:6,penalties:0,appearances:3,minutes:205},
+  {flag:'🇦🇷',name:'梅西',team:'阿根廷',goals:7,penalties:0,appearances:4,minutes:300},
   {flag:'🇸🇳',name:'萨尔',team:'塞内加尔',goals:2,penalties:0,appearances:1,minutes:90},
   {flag:'🇨🇦',name:'乔纳森·大卫',team:'加拿大',goals:4,penalties:0,appearances:3,minutes:270},
   {flag:'🇨🇦',name:'欧斯塔吉奥',team:'加拿大',goals:2,penalties:0,appearances:4,minutes:360},
@@ -2018,7 +2018,7 @@ var scorersData = [
   {flag:'🇹🇳',name:'雷基克',team:'突尼斯',goals:1,penalties:0,appearances:1,minutes:90},
   {flag:'🇸🇪',name:'哲凯赖什',team:'瑞典',goals:1,penalties:0,appearances:1,minutes:90},
   {flag:'🇸🇪',name:'斯文松',team:'瑞典',goals:1,penalties:0,appearances:1,minutes:90},
-  {flag:'🇪🇬',name:'阿舒尔',team:'埃及',goals:1,penalties:0,appearances:1,minutes:90},
+  {flag:'🇪🇬',name:'阿舒尔',team:'埃及',goals:2,penalties:0,appearances:2,minutes:180},
   {flag:'🇮🇷',name:'雷扎伊扬',team:'伊朗',goals:2,penalties:0,appearances:2,minutes:180},
   {flag:'🇮🇷',name:'莫赫比',team:'伊朗',goals:1,penalties:0,appearances:1,minutes:90},
   {flag:'🇸🇦',name:'阿姆里',team:'沙特阿拉伯',goals:1,penalties:0,appearances:1,minutes:90},
@@ -2131,7 +2131,12 @@ var scorersData = [
   {flag:'🇨🇮',name:'迪亚洛',team:'科特迪瓦',goals:1,penalties:0,appearances:1,minutes:20},
   {flag:'🇨🇩',name:'西彭加',team:'刚果民主共和国',goals:1,penalties:0,appearances:4,minutes:360},
   {flag:'🇧🇪',name:'蒂勒曼斯',team:'比利时',goals:2,penalties:1,appearances:4,minutes:390},
-  {flag:'🇺🇸',name:'蒂尔曼',team:'美国',goals:1,penalties:0,appearances:4,minutes:360}
+  {flag:'🇺🇸',name:'蒂尔曼',team:'美国',goals:1,penalties:0,appearances:4,minutes:360},
+  {flag:'🇦🇷',name:'利桑德罗·马丁内斯',team:'阿根廷',goals:1,penalties:0,appearances:1,minutes:25},
+  {flag:'🇦🇷',name:'罗梅罗',team:'阿根廷',goals:1,penalties:0,appearances:1,minutes:25},
+  {flag:'🇨🇻',name:'杜阿尔特',team:'佛得角',goals:1,penalties:0,appearances:1,minutes:90},
+  {flag:'🇨🇻',name:'洛佩斯·卡布拉尔',team:'佛得角',goals:1,penalties:0,appearances:1,minutes:45},
+  {flag:'🇨🇴',name:'阿里亚斯',team:'哥伦比亚',goals:1,penalties:0,appearances:1,minutes:90}
 ];
 var assistsData = [
   {flag:'🇩🇪',name:'基米希',team:'德国',assists:2,goals:0,appearances:1,minutes:90},
@@ -2214,7 +2219,8 @@ var assistsData = [
   {flag:'🇭🇷',name:'莫德里奇',team:'克罗地亚',assists:1,goals:0,appearances:3,minutes:270},
   {flag:'🇲🇽',name:'基尼奥内斯',team:'墨西哥',assists:1,goals:3,appearances:3,minutes:270},
   {flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',name:'戈登',team:'英格兰',assists:2,goals:0,appearances:3,minutes:90},
-  {flag:'🇧🇪',name:'默尼耶',team:'比利时',assists:1,goals:0,appearances:1,minutes:11}
+  {flag:'🇧🇪',name:'默尼耶',team:'比利时',assists:1,goals:0,appearances:1,minutes:11},
+  {flag:'🇨🇴',name:'苏亚雷斯',team:'哥伦比亚',assists:1,goals:0,appearances:1,minutes:30}
 ];
 
 function renderScorers() {
@@ -2262,7 +2268,7 @@ var knockoutResults = {
   'R32-1':{home:0,away:1},'R32-2':{home:2,away:1},'R32-3':{home:1,away:1},'R32-4':{home:1,away:1},
   'R32-5':{home:1,away:2},'R32-6':{home:3,away:0},'R32-7':{home:2,away:0},'R32-8':{home:2,away:1},
   'R32-9':{home:2,away:2},'R32-10':{home:2,away:0},'R32-11':{home:3,away:0},'R32-12':{home:2,away:1},
-  'R32-13':{home:2,away:0},'R32-14':{home:null,away:null},'R32-15':{home:null,away:null},'R32-16':{home:null,away:null},
+  'R32-13':{home:2,away:0},'R32-14':{home:1,away:1},'R32-15':{home:1,away:1},'R32-16':{home:1,away:0},
   'R16-1':{home:null,away:null},'R16-2':{home:null,away:null},'R16-3':{home:null,away:null},'R16-4':{home:null,away:null},
   'R16-5':{home:null,away:null},'R16-6':{home:null,away:null},'R16-7':{home:null,away:null},'R16-8':{home:null,away:null},
   'QF-1':{home:null,away:null},'QF-2':{home:null,away:null},'QF-3':{home:null,away:null},'QF-4':{home:null,away:null},
@@ -2312,14 +2318,14 @@ var knockoutMatches = {
      mfText:'瑞士杯赛专家擅长爆冷！曼赞比3球+恩博洛1球1助攻攻击力不俗，巴尔加斯1球1助攻是惊喜。阿尔及利亚小组赛3-3奥地利惊险出线，马赫雷斯2球+阿穆拉经验是关键但防守漏洞大。<br><span class="update-tag">🆕 最新</span> 7/2 Football365更新：瑞士<strong>仅右后卫维德默有臀伤隐患，但雅凯对加拿大表现出色有望继续首发</strong>；曼赞比（3球1助）是本屆世界杯突破之星。阿尔及利亚<strong>阿穆拉大腿伤势已恢复可进入大名单但不会首发</strong>，古伊里继续出任中锋，<strong>奥亚尔末轮对奥地利贡献两次助攻</strong>。门将<strong>齐达内上轮被撤下后本轮有望重回首发</strong>。阿尔及利亚小组赛失7球为所有32强并列最差，瑞士连续4届世界杯进入淘汰赛但自1934年以来未赢过淘汰赛。Football365预测：瑞士获胜+双方进球，比分倾向瑞士2-1。<br><span class="update-tag">🆕 最新</span> 北京时间7月3日11:00完赛，<strong>恩博洛第10分钟接曼赞比助攻撞射破门</strong>，<strong>恩多耶第46分钟扩大比分</strong>，瑞士2-0淘汰阿尔及利亚，终结自1934年以来淘汰赛不胜魔咒，晋级16强将战阿根廷！<br><span class="result-badge draw">✅ 预测方向命中！预测比分 2 : 1，实际比分 2 : 0</span>',
      predText:'瑞士整体实力+杯赛经验占优，阿尔及利亚反击有一定威胁。',predBadge:'win',predLabel:'瑞士晋级',predScore:'瑞士晋级',regTimePred:'2 : 1'},
     {id:'R32-14',homeFlag:'🇦🇺',homeName:'澳大利亚',awayFlag:'🇪🇬',awayName:'埃及',date:'7月4日',time:'02:00',venue:'达拉斯 · AT&T体育场',round:'1/16决赛 · 第14场',
-     mfText:'萨拉赫2球3助攻领衔埃及！如果萨拉赫出战埃及攻击力大增，但体能存疑（对伊朗提前下场）。澳大利亚首次晋级淘汰赛创造历史，奥孔-恩格斯特勒1助攻是亮点但主力Leckie缺阵影响大。<br><span class="update-tag">🆕 最新</span> 澳大利亚<strong>伊塔利亚诺、莱基因伤缺阵</strong>，预计由比奇继续首发门将，伊兰昆达+杜克领衔攻击线。埃及<strong>萨拉赫腿伤仍是大疑问</strong>，如能出战将是最大武器；马穆什、齐科准备随时顶上。预计双方将展开艰苦消耗战。<br><span class="update-tag">🆕 最新</span> 7/2重大更新：埃及伤病危机严重升级！<strong>萨拉赫对伊朗因腘绳肌拉伤被换下，出战成疑</strong>；中卫<strong>阿卜杜勒莫内姆仅踢14分钟膝盖受伤</strong>；左后卫<strong>法图赫末段也拉伤腘绳肌</strong>——三名主力均存疑！澳大利亚阵容齐整且多休息一天，从西海岸飞达拉斯航程更短。分析预测<strong>澳大利亚1-1逼平后点球晋级</strong>，埃及若萨拉赫缺阵攻击力将严重削弱。<br><span class="update-tag">🆕 7/3最终</span> 赛前最新消息：<strong>萨拉赫左腿后侧肌肉拉伤恢复乐观，大概率可以首发出场</strong>；但<strong>法图赫大腿后侧肌肉撕裂大概率缺席</strong>，<strong>阿卜杜勒莫内姆脚踝严重挫伤出战成疑</strong>。埃及三将受损但头号球星有望出战，战力明显提升。澳大利亚小组赛近两场颗粒无收、进攻乏力，缺少能在关键时刻改变比赛的球星。综合判断：埃及2-1或1-1，看好埃及90分钟内取胜晋级。',
-     predText:'萨拉赫大概率首发极大提升埃及攻击力，法图赫和阿卜杜勒莫内姆伤缺影响防线。澳大利亚进攻乏力，难挡萨拉赫+马尔穆什双核驱动。最新预测：埃及2-1晋级。',predBadge:'win',predLabel:'埃及晋级',predScore:'埃及晋级',regTimePred:'2 : 1'},
+     mfText:'萨拉赫2球3助攻领衔埃及！如果萨拉赫出战埃及攻击力大增，但体能存疑（对伊朗提前下场）。澳大利亚首次晋级淘汰赛创造历史，奥孔-恩格斯特勒1助攻是亮点但主力Leckie缺阵影响大。<br><span class="update-tag">🆕 最新</span> 澳大利亚<strong>伊塔利亚诺、莱基因伤缺阵</strong>，预计由比奇继续首发门将，伊兰昆达+杜克领衔攻击线。埃及<strong>萨拉赫腿伤仍是大疑问</strong>，如能出战将是最大武器；马穆什、齐科准备随时顶上。预计双方将展开艰苦消耗战。<br><span class="update-tag">🆕 7/2重大更新</span> 埃及伤病危机严重升级！<strong>萨拉赫对伊朗因腘绳肌拉伤被换下，出战成疑</strong>；中卫<strong>阿卜杜勒莫内姆仅踢14分钟膝盖受伤</strong>；左后卫<strong>法图赫末段也拉伤腘绳肌</strong>——三名主力均存疑！澳大利亚阵容齐整且多休息一天，从西海岸飞达拉斯航程更短。分析预测<strong>澳大利亚1-1逼平后点球晋级</strong>，埃及若萨拉赫缺阵攻击力将严重削弱。<br><span class="update-tag">🆕 7/3最终</span> 赛前最新消息：<strong>萨拉赫左腿后侧肌肉拉伤恢复乐观，大概率可以首发出场</strong>；但<strong>法图赫大腿后侧肌肉撕裂大概率缺席</strong>，<strong>阿卜杜勒莫内姆脚踝严重挫伤出战成疑</strong>。埃及三将受损但头号球星有望出战，战力明显提升。澳大利亚小组赛近两场颗粒无收、进攻乏力，缺少能在关键时刻改变比赛的球星。综合判断：埃及2-1或1-1，看好埃及90分钟内取胜晋级。<br><span class="update-tag">🆕 最新</span> 北京时间7月4日02:00完赛！<strong>第13分钟埃姆·阿舒尔头球破门</strong>（卡里姆·哈菲兹传中）埃及先声夺人！下半场澳大利亚通过<strong>康纳·奥尼尔任意球制造混乱，穆罕默德·哈尼第55分钟不慎头球自摆乌龙</strong>扳平！<strong>马穆什补时阶段单刀打偏</strong>错失绝杀，120分钟1-1战平进入点球大战。<strong>埃及点球4-2淘汰澳大利亚</strong>：哈桑·阿卜杜勒马吉德罚进制胜点球，萨拉赫勺子点球命中；澳大利亚方面索塔尔罚失+赫林顿击中横梁！埃及队史首次赢得世界杯淘汰赛胜利！<br><span class="result-badge draw">✅ 预测方向命中！预测比分 2 : 1，实际 90分钟1 : 1（加时1-1，埃及点球4-2晋级）</span><br><span class="result-badge win">✅ 晋级预测命中！预测埃及晋级，实际埃及晋级（点球）</span>',
+     predText:'【独立分析】萨拉赫大概率首发极大提升埃及攻击力，法图赫和阿卜杜勒莫内姆伤缺影响防线。澳大利亚进攻乏力，难挡萨拉赫+马尔穆什双核驱动。最新独立判断：埃及2-1或1-1，看好埃及常规时间不败晋级。',predBadge:'win',predLabel:'埃及晋级',predScore:'埃及晋级',regTimePred:'2 : 1'},
     {id:'R32-15',homeFlag:'🇦🇷',homeName:'阿根廷',awayFlag:'🇨🇻',awayName:'佛得角',date:'7月4日',time:'06:00',venue:'迈阿密 · 硬石体育场',round:'1/16决赛 · 第15场',
-     mfText:'梅西6球领跑射手榜！卫冕冠军对阵人口52万的佛得角——本届最具童话色彩对决。佛得角3场皆平凭净胜球晋级，成为世界杯历史上人口最少的晋级队伍。阿根廷实力碾压，迈阿密气候适应。<br><span class="update-tag">🆕 最新</span> 7/2更新：阿根廷<strong>无伤病，梅西确认首发</strong>冲击连续7场世界杯进球纪录（此前6场6球）。小组赛末轮大幅轮换为淘汰赛蓄力，劳塔罗、洛塞尔索有望继续首发或替补待命。佛得角核心<strong>凯文·皮纳和埃利奥·瓦雷拉</strong>是对阵西班牙取得平局的关键球员，将以铁桶阵战术应对。AI预测模型给出阿根廷78%胜率，最可能比分2-0。<br><span class="update-tag">🆕 7/3最新</span> 场外花絮：加纳巫师<strong>纳纳·夸库·邦萨姆</strong>在社交媒体预言"佛得角将淘汰阿根廷"，此前他曾"诅咒"凯恩导致英格兰对加纳0-0。阿根廷球迷迅速发起<strong>"Anulo Mufa"（破除霉运）</strong>运动回应，甚至有中国球迷进道教寺庙为阿根廷祈祷。佛得角总统表态"100%信心淘汰阿根廷"。玄学归玄学，阿根廷实力碾压，佛得角铁桶阵难挡。<br><span class="update-tag">🆕 7/3独立分析调整</span> 预测比分从3-0调整为<strong>2-0</strong>。理由：佛得角防守韧性高于阿根廷此前3个对手（零封西班牙含27次射门），40岁门将沃齐尼亚扑救顶级至少能多守住1次；阿根廷近10战全胜29进球仅2失球，实力碾压无悬念，但佛得角防守质量使3球难度增大。一旦阿根廷破门，佛得角无反击机制。',
-     predText:'【独立分析】阿根廷近10战全胜29进球仅2失球，实力碾压；但佛得角防守韧性高于阿根廷此前3个对手（零封西班牙，沃齐尼亚扑救顶级），前45分钟可能胶着。一旦阿根廷破门，佛得角无反击机制。预测2-0而非3-0，佛得角防守至少能多守住1次机会。',predBadge:'win',predLabel:'阿根廷晋级',predScore:'阿根廷晋级',regTimePred:'2 : 0'},
+     mfText:'梅西6球领跑射手榜！卫冕冠军对阵人口52万的佛得角——本届最具童话色彩对决。佛得角3场皆平凭净胜球晋级，成为世界杯历史上人口最少的晋级队伍。阿根廷实力碾压，迈阿密气候适应。<br><span class="update-tag">🆕 最新</span> 7/2更新：阿根廷<strong>无伤病，梅西确认首发</strong>冲击连续7场世界杯进球纪录（此前6场6球）。小组赛末轮大幅轮换为淘汰赛蓄力，劳塔罗、洛塞尔索有望继续首发或替补待命。佛得角核心<strong>凯文·皮纳和埃利奥·瓦雷拉</strong>是对阵西班牙取得平局的关键球员，将以铁桶阵战术应对。AI预测模型给出阿根廷78%胜率，最可能比分2-0。<br><span class="update-tag">🆕 7/3最新</span> 场外花絮：加纳巫师<strong>纳纳·夸库·邦萨姆</strong>在社交媒体预言"佛得角将淘汰阿根廷"，此前他曾"诅咒"凯恩导致英格兰对加纳0-0。阿根廷球迷迅速发起<strong>"Anulo Mufa"（破除霉运）</strong>运动回应，甚至有中国球迷进道教寺庙为阿根廷祈祷。佛得角总统表态"100%信心淘汰阿根廷"。玄学归玄学，阿根廷实力碾压，佛得角铁桶阵难挡。<br><span class="update-tag">🆕 7/3独立分析调整</span> 预测比分从3-0调整为<strong>2-0</strong>。理由：佛得角防守韧性高于阿根廷此前3个对手（零封西班牙含27次射门），40岁门将沃齐尼亚扑救顶级至少能多守住1次；阿根廷近10战全胜29进球仅2失球，实力碾压无悬念，但佛得角防守质量使3球难度增大。一旦阿根廷破门，佛得角无反击机制。<br><span class="update-tag">🆕 最新</span> 北京时间7月4日06:00完赛！本届最戏剧性比赛之一！<strong>上半场梅西率先破门</strong>为阿根廷首开纪录，<strong>下半场德罗伊·杜阿尔特扳平</strong>佛得角1-1！常规时间90分钟结束1-1，<strong>40岁门将沃齐尼亚全场8次扑救封神</strong>！加时赛<strong>利桑德罗·马丁内斯角球头球破门</strong>，阿根廷2-1领先；<strong>西德尼·洛佩斯·卡布拉尔禁区外世界波远射扳平</strong>2-2！第118分钟<strong>克里斯蒂安·罗梅罗接梅西角球头球攻门，皮球蹭迪尼·博尔热斯折射入网</strong>，阿根廷3-2绝杀晋级！<br><span class="result-badge draw">✅ 预测方向命中！预测比分 2 : 0，实际 90分钟1 : 1（加时3 : 2）</span><br><span class="result-badge win">✅ 晋级预测命中！预测阿根廷晋级，实际阿根廷晋级（加时）</span>',
+     predText:'【独立分析】阿根廷近10战全胜29进球仅2失球，实力碾压；但佛得角防守韧性高于阿根廷此前3个对手（零封西班牙，沃齐尼亚扑救顶级），前45分钟可能胶着。一旦阿根廷破门，佛得角无反击机制。独立判断2-0而非3-0，佛得角防守至少能多守住1次机会。',predBadge:'win',predLabel:'阿根廷晋级',predScore:'阿根廷晋级',regTimePred:'2 : 0'},
     {id:'R32-16',homeFlag:'🇨🇴',homeName:'哥伦比亚',awayFlag:'🇬🇭',awayName:'加纳',date:'7月4日',time:'09:30',venue:'堪萨斯城 · 箭头体育场',round:'1/16决赛 · 第16场',
-     mfText:'哥伦比亚J罗状态回升+迪亚斯1球1助攻边路威胁大！小组赛0-0葡萄牙防守稳健。加纳小组赛4分出线，托马斯-阿桑特1助攻是亮点，防守坚韧但攻击力有限。<br><span class="update-tag">🆕 最新</span> 7/2 Sports Mole更新：哥伦比亚<strong>无伤病，苏亚雷斯上轮仅替补出场是因轻微伤疑已完全恢复</strong>，预计J罗+路易斯·迪亚斯+苏亚雷斯三叉戟首发。加纳主要担忧<strong>塞梅尼奥脚踝问题但预计仍可首发</strong>；门将<strong>齐吉仍存疑，阿萨雷有望继续首发</strong>。加纳曾0-0逼平英格兰证明防守能力，但哥伦比亚小组赛仅失1球防守同样出色。Sports Mole预测哥伦比亚1-0小胜。<br><span class="update-tag">🆕 7/3最新</span> 哥伦比亚全员健康，路易斯·迪亚斯是破密集防守关键，J罗经验+定位球能力将是破局利器。加纳锋线三人组<strong>塞梅尼奥、苏莱马纳、法塔武</strong>均确认可以健康出战，反击速度是最大威胁。哥伦比亚实力、经验、技术全面占优，看好1-0小胜晋级。<br><span class="update-tag">🆕 7/3独立分析调整</span> 预测比分从2-1调整为<strong>1-0</strong>。理由：双方防守均经顶级对手验证（哥伦比亚0-0葡萄牙仅失1球/3场、加纳0-0英格兰），预示低比分比赛；加纳进攻产量仅0.67球/场不足以保证进球；哥伦比亚小组场均1.3球面对严密防守破门效率有限，但J罗+迪亚斯个人能力可在60-70分钟后破局。',
-     predText:'【独立分析】哥伦比亚K组头名7分仅失1球，加纳L组第3名4分进攻产量仅0.67球/场。双方防守均经顶级对手验证（哥伦比亚0-0葡萄牙、加纳0-0英格兰），预示低比分比赛。哥伦比亚控球压制，加纳深度防守，60-70分钟后通过J罗或迪亚斯个人能力破局。预测1-0而非2-1，加纳进攻不足以保证进球。',predBadge:'win',predLabel:'哥伦比亚晋级',predScore:'哥伦比亚晋级',regTimePred:'1 : 0'}
+     mfText:'哥伦比亚J罗状态回升+迪亚斯1球1助攻边路威胁大！小组赛0-0葡萄牙防守稳健。加纳小组赛4分出线，托马斯-阿桑特1助攻是亮点，防守坚韧但攻击力有限。<br><span class="update-tag">🆕 最新</span> 7/2 Sports Mole更新：哥伦比亚<strong>无伤病，苏亚雷斯上轮仅替补出场是因轻微伤疑已完全恢复</strong>，预计J罗+路易斯·迪亚斯+苏亚雷斯三叉戟首发。加纳主要担忧<strong>塞梅尼奥脚踝问题但预计仍可首发</strong>；门将<strong>齐吉仍存疑，阿萨雷有望继续首发</strong>。加纳曾0-0逼平英格兰证明防守能力，但哥伦比亚小组赛仅失1球防守同样出色。Sports Mole预测哥伦比亚1-0小胜。<br><span class="update-tag">🆕 7/3最新</span> 哥伦比亚全员健康，路易斯·迪亚斯是破密集防守关键，J罗经验+定位球能力将是破局利器。加纳锋线三人组<strong>塞梅尼奥、苏莱马纳、法塔武</strong>均确认可以健康出战，反击速度是最大威胁。哥伦比亚实力、经验、技术全面占优，看好1-0小胜晋级。<br><span class="update-tag">🆕 7/3独立分析调整</span> 预测比分从2-1调整为<strong>1-0</strong>。理由：双方防守均经顶级对手验证（哥伦比亚0-0葡萄牙仅失1球/3场、加纳0-0英格兰），预示低比分比赛；加纳进攻产量仅0.67球/场不足以保证进球；哥伦比亚小组场均1.3球面对严密防守破门效率有限，但J罗+迪亚斯个人能力可在60-70分钟后破局。<br><span class="update-tag">🆕 最新</span> 北京时间7月4日09:30完赛！<strong>第14分钟约翰·阿里亚斯（哥伦比亚）推射破门</strong>1-0领先！哥伦比亚全场统治级表现，控球率和射门数大幅领先，但临门一脚始终未能扩大比分；加纳门将阿萨雷多次神扑。最终哥伦比亚1-0小胜加纳，晋级16强将战瑞士！<br><span class="result-badge win">✅ 预测命中！预测比分 1 : 0，实际比分 1 : 0</span>',
+     predText:'【独立分析】哥伦比亚K组头名7分仅失1球，加纳L组第3名4分进攻产量仅0.67球/场。双方防守均经顶级对手验证（哥伦比亚0-0葡萄牙、加纳0-0英格兰），预示低比分比赛。哥伦比亚控球压制，加纳深度防守，60-70分钟后通过J罗或迪亚斯个人能力破局。独立判断1-0而非2-1，加纳进攻不足以保证进球。',predBadge:'win',predLabel:'哥伦比亚晋级',predScore:'哥伦比亚晋级',regTimePred:'1 : 0'}
   ],
   r16:[
     {id:'R16-1',homeFlag:'🇨🇦',homeName:'加拿大',awayFlag:'🇲🇦',awayName:'摩洛哥',date:'7月5日',time:'01:00',venue:'休斯顿 · NRG体育场',round:'1/8决赛 · 第1场',
@@ -2336,10 +2342,12 @@ var knockoutMatches = {
      mfText:'<span class="update-tag">🆕 最新</span> 葡萄牙2-1逆转克罗地亚晋级，西班牙3-0横扫奥地利晋级——伊比利亚半岛内战在达拉斯上演！C罗与亚马尔将正面交锋，葡萄牙后防缺佩佩+坎塞洛停赛，西班牙35场不败状态火热。',predText:'西班牙整体实力+状态更胜一筹，葡萄牙虽韧性十足但防线缺损。预测西班牙2-1晋级。',predBadge:'win',predLabel:'西班牙晋级',predScore:'西班牙晋级',regTimePred:'1 : 2'},
     {id:'R16-6',homeFlag:'🇺🇸',homeName:'美国',awayFlag:'🇧🇪',awayName:'比利时',date:'7月7日',time:'08:00',venue:'西雅图 · Lumen Field',round:'1/8决赛 · 第6场',
      mfText:'<span class="update-tag">🆕 最新</span> 美国10人2-0淘汰波黑，比利时加时惊天逆转3-2塞内加尔！两队会师西雅图——波切蒂诺PK加西亚，但巴洛贡红牌将缺席这场关键战。<br><span class="update-tag">🆕 最新</span> 美国终结对欧洲球队10连败士气高涨，但巴洛贡（3球）停赛将极大削弱攻击力，普利西奇和蒂尔曼需承担更多进攻责任。比利时经历120分钟鏖战消耗巨大，但蒂勒曼斯2球+Lukaku替补建功展现韧性。',predText:'巴洛贡停赛对美国攻击线是重大打击，比利时经验更丰富但加时消耗大。预测比利时2-1晋级。',predBadge:'win',predLabel:'比利时晋级',predScore:'比利时晋级',regTimePred:'1 : 2'},
-    {id:'R16-7',homeFlag:'',homeName:'1/16决赛第16场胜者',awayFlag:'',awayName:'1/16决赛第14场胜者',date:'7月8日',time:'00:00',venue:'亚特兰大 · 梅赛德斯-奔驰体育场',round:'1/8决赛 · 第7场',
-     mfText:'哥伦比亚/加纳 vs 澳大利亚/埃及——J罗vs萨拉赫？南美对非洲精彩对决！',predText:'待1/16决赛结果后更新预测',predBadge:'draw',predLabel:'预测：待定',predScore:'待定',regTimePred:'- : -'},
-    {id:'R16-8',homeFlag:'🇨🇭',homeName:'瑞士',awayFlag:'',awayName:'1/16决赛第15场胜者',date:'7月8日',time:'04:00',venue:'温哥华 · BC Place',round:'1/8决赛 · 第8场',
-     mfText:'<span class="update-tag">🆕 最新</span> 瑞士2-0淘汰阿尔及利亚，终结自1934年以来淘汰赛不胜魔咒，晋级16强。对手将是阿根廷vs佛得角的胜者。',predText:'若阿根廷晋级，瑞士难挡卫冕冠军；若佛得角爆冷，瑞士经验占优。暂按阿根廷晋级预测：阿根廷2-1瑞士。',predBadge:'win',predLabel:'阿根廷晋级',predScore:'阿根廷晋级',regTimePred:'1 : 2'}
+    {id:'R16-7',homeFlag:'🇨🇴',homeName:'哥伦比亚',awayFlag:'🇪🇬',awayName:'埃及',date:'7月8日',time:'00:00',venue:'亚特兰大 · 梅赛德斯-奔驰体育场',round:'1/8决赛 · 第7场',
+     mfText:'<span class="update-tag">🆕 最新</span> 1/16决赛结果：哥伦比亚1-0小胜加纳（阿里亚斯第14分钟破门），埃及1-1战平澳大利亚后点球4-2淘汰对手晋级——这是埃及队史首次赢得世界杯淘汰赛！<strong>J罗vs萨拉赫</strong>南美技术流对非洲快速反击的精彩对决。哥伦比亚本届防守顶级（4场仅失1球），埃及则有萨拉赫+马穆什+阿舒尔组成的进攻三叉戟。<br><span class="update-tag">🆕 7/4独立分析</span> <strong>本届数据表现</strong>：哥伦比亚4场2胜2平0负（6进球1失球），防守仅失1球小组赛最顶级；埃及4场2胜1平1负（5进球4失球），6粒进球仅次于哥伦比亚进攻火力。萨拉赫3球3助攻仍是埃及核心，J罗+迪亚斯组合则是哥伦比亚进攻发动机。<br><strong>伤病影响</strong>：埃及方面法图赫（腿筋撕裂）确认缺阵、阿卜杜勒莫内姆（脚踝严重挫伤）出战成疑，左后卫位置深度受影响；哥伦比亚全员健康。<br><strong>战术匹配</strong>：哥伦比亚控球压制+边路冲击，埃及快速反击+萨拉赫个人能力。关键是埃及能否顶住哥伦比亚开场的高位逼抢——若能撑过前30分钟，反击空间将打开。<br><strong>关键变量</strong>：①萨拉赫体能（120分钟+点球消耗）→60%可能首发但80分钟后可能体能下降；②哥伦比亚破密集防守效率（小组赛场均1.5球但对严密防守进球率低）→看好通过定位球或边路传中破门。',
+     predText:'【独立分析】综合判断：哥伦比亚控球能力+防守稳固性占优，但埃及反击威胁不容忽视，萨拉赫即使90%体能也具备一锤定音能力。看好90分钟分胜负，比分倾向1-0或2-1。独立判断哥伦比亚1-0小胜晋级——J罗经验+定位球能力是破局关键，萨拉赫体能隐患是埃及最大不确定性。',predBadge:'win',predLabel:'哥伦比亚晋级',predScore:'哥伦比亚晋级',regTimePred:'1 : 0'},
+    {id:'R16-8',homeFlag:'🇨🇭',homeName:'瑞士',awayFlag:'🇦🇷',awayName:'阿根廷',date:'7月8日',time:'04:00',venue:'温哥华 · BC Place',round:'1/8决赛 · 第8场',
+     mfText:'<span class="update-tag">🆕 最新</span> 瑞士2-0淘汰阿尔及利亚，终结自1934年以来淘汰赛不胜魔咒，晋级16强。对手确定为阿根廷——3-2加时险胜佛得角晋级，<strong>梅西本届7球</strong>继续领跑射手榜！瑞士曼赞比3球+恩博洛2球状态正佳，阿根廷则刚经历120分钟鏖战体能堪忧。<br><span class="update-tag">🆕 7/4独立分析</span> <strong>本届数据表现</strong>：瑞士4场3胜1平0负（7进球2失球），防守仅次于西班牙；阿根廷4场3胜1平0负（9进球3失球），但加时赛体能消耗巨大，120分钟+点球的消耗让首发球员平均比瑞士多踢60+分钟。<br><strong>伤病影响</strong>：阿根廷刚经历加时鏖战，劳塔罗、阿尔瓦雷斯等替补奇兵消耗不大，但首发后防+中场体能下降明显；瑞士则休整充分+轮换厚度足够。<br><strong>战术匹配</strong>：瑞士高位逼抢+快速转换，阿根廷控球渗透+梅西串联。关键对位是扎卡vs恩佐/德保罗——瑞士中场拦截能力如能切断梅西传球路线，将极大削弱阿根廷进攻。<br><strong>关键变量</strong>：①阿根廷体能恢复（80%可能首发会做3-4人轮换）→首发控制力下降；②瑞士定位球（曼赞比争顶+恩博洛抢点）→可能成为破局点；③梅西状态（加时刚绝杀士气高涨）→个人能力仍可改变比赛。',
+     predText:'【独立分析】综合判断：阿根廷实力+梅西个人能力明显占优，但加时鏖战体能消耗+瑞士轮换充分+防守体系成熟，瑞士爆冷能力不容忽视。关键变量是阿根廷首发轮换程度——若斯卡尔洛尼轮换3-4人，瑞士反击威胁将大增。独立判断：常规时间1-1或1-2，看好阿根廷小胜但90分钟可能被瑞士逼平。综合看：阿根廷1-2小胜晋级。',predBadge:'draw',predLabel:'阿根廷晋级（可能加时）',predScore:'阿根廷晋级',regTimePred:'1 : 2'}
   ],
   qf:[
     {id:'QF-1',homeFlag:'',homeName:'1/8决赛第1场胜者',awayFlag:'',awayName:'1/8决赛第2场胜者',date:'7月10日',time:'04:00',venue:'波士顿 · 吉列体育场',round:'1/4决赛 · 第1场',
